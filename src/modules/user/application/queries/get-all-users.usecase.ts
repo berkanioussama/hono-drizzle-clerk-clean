@@ -1,14 +1,14 @@
-import { UserRepository } from "../../domain/user.repository";
-import { GetUserOutputDTO } from "../dto/get-user.dto";
+import { IUserRepository } from "../../domain/IUser.repository";
 import { UserMapper } from "../mappers/user.mapper";
+import { UserOutputDTO } from "../dto/user-output.dto";
 
 export class GetAllUsersUseCase {
-  constructor(private userRepository: UserRepository) {}
+  constructor(private userRepository: IUserRepository) {}
 
-  async execute(): Promise<GetUserOutputDTO[]> {
-    const users = await this.userRepository.getAll();
+  async execute(): Promise<UserOutputDTO[]> {
+    const users = await this.userRepository.findAll();
 
-    const output: GetUserOutputDTO[] = users.map((user) => UserMapper.toDTO(user));
+    const output: UserOutputDTO[] = users.map((user) => UserMapper.toDTO(user));
 
     return output;
   }

@@ -1,12 +1,12 @@
 import { User } from "../domain/user.entity";
-import { UserRepository } from "../domain/user.repository";
+import { IUserRepository } from "../domain/IUser.repository";
 import { db } from "../../../shared/infrastructure/database/db";
 import { users } from "../../../shared/infrastructure/database/schema";
 import { eq } from "drizzle-orm";
 
-export class UserRepositoryDrizzle implements UserRepository {
+export class UserRepository implements IUserRepository {
     
-    async create(user: User): Promise<User> {
+    async add(user: User): Promise<User> {
         await db.insert(users).values({
             id: user.id,
             clerk_user_id: user.clerkUserId,
@@ -63,7 +63,7 @@ export class UserRepositoryDrizzle implements UserRepository {
         });
     }
     
-    async getAll(): Promise<User[]> {
+    async findAll(): Promise<User[]> {
         const rows = await db.select().from(users)
         return rows.map(
             row =>
@@ -78,7 +78,7 @@ export class UserRepositoryDrizzle implements UserRepository {
             );
     }
     
-    async update(user: User): Promise<User> {
+    async edit(user: User): Promise<User> {
         await db.update(users).set({
             name: user.name,
             email: user.email,
@@ -87,7 +87,7 @@ export class UserRepositoryDrizzle implements UserRepository {
         return user;
     }
 
-    async delete(id: string): Promise<void> {
+    async remove(id: string): Promise<void> {
         await db.delete(users).where(eq(users.id, id));
     }
 }

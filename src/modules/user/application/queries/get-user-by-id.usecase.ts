@@ -1,12 +1,12 @@
-import { GetUserInputDTO } from "../dto/get-user.dto";
-import { UserRepository } from "../../domain/user.repository";
-import { GetUserOutputDTO } from "../dto/get-user.dto";
+import { IUserRepository } from "../../domain/IUser.repository";
 import { UserMapper } from "../mappers/user.mapper";
+import { UserOutputDTO } from "../dto/user-output.dto";
+import { GetUserInputDTO } from "../dto/user-input.dto";
 
 export class GetUserByIdUseCase {
-  constructor(private userRepository: UserRepository) {}
+  constructor(private userRepository: IUserRepository) {}
 
-  async execute(input: GetUserInputDTO): Promise<GetUserOutputDTO | null> {
+  async execute(input: GetUserInputDTO): Promise<UserOutputDTO | null> {
     if (!input.id || input.id.trim().length === 0) {
       throw new Error("Invalid ID");
     }

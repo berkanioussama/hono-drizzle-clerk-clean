@@ -1,23 +1,24 @@
 import { Hono } from 'hono';
 import { Webhook } from 'svix';
-import { UserRepositoryDrizzle } from '../../infrastructure/user-repository-drizzle';
+import { UserRepository } from '../../infrastructure/user.repository';
 import { CreateUserByClerkUseCase } from '../../application/commands/create-user-by-clerk.usecase';
 import { DeleteUserByClerkUseCase } from '../../application/commands/delete-user-by-clerk.usecase';
 
 type ClerkWebhookEvent = {
     type: string;
     data: {
-        id: string;
-        [key: string]: any;
+      id: string;
+      [key: string]: any;
     };
 };
 
 const webhook = new Webhook(process.env.CLERK_WEBHOOK_SIGNING_SECRET || '');
 
 const clerkWebhook = new Hono();
-const userRepository = new UserRepositoryDrizzle();
-const createUserUseCase = new CreateUserByClerkUseCase(userRepository);
-const deleteUserUseCase = new DeleteUserByClerkUseCase(userRepository);
+
+const userRepository = new UserRepository();
+const createUserByClerkUseCase = new CreateUserByClerkUseCase(userRepository);
+const deleteUserByClerkUseCase = new DeleteUserByClerkUseCase(userRepository);
 
 clerkWebhook.post('/', async (c) => {
   try {
@@ -45,13 +46,13 @@ clerkWebhook.post('/', async (c) => {
       
       // Process the event
       if (event.type === 'user.created' || event.type === 'user.updated') {
-        await createUserUseCase.execute({
+        await createUserByClerkUseCase.execute({
           clerkUserId: event.data.id,
           name: `${event.data.first_name || ''} ${event.data.last_name || ''}`.trim(),
           email: event.data.email_addresses?.[0]?.email_address,
         });
       } else if (event.type === 'user.deleted') {
-        await deleteUserUseCase.execute(event.data.id);
+        await deleteUserByClerkUseCase.execute({clerkUserId: event.data.id});
       }
 
       return c.text('Webhook processed successfully', 200);

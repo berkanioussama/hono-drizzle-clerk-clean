@@ -1,9 +1,4 @@
-export interface GetUserInputDTO {
-  id: string;
-  clerkUserId: string;
-}
-
-export interface GetUserOutputDTO {
+export interface UserOutputDTO {
   id: string;
   clerkUserId: string;
   name: string;

@@ -1,12 +1,12 @@
-import { UserRepository } from "../../domain/user.repository";
+import { IUserRepository } from "../../domain/IUser.repository";
+import { DeleteUserByClerkInputDTO } from "../dto/user-input.dto";
 
 export class DeleteUserByClerkUseCase {
-  constructor(private userRepository: UserRepository) {}
+  constructor(private userRepository: IUserRepository) {}
 
-  async execute(clerkUserId: string): Promise<void> {
-    const user = await this.userRepository.findByClerkUserId(clerkUserId);
-    if (user) {
-      await this.userRepository.delete(user.id);
-    }
+  async execute(input: DeleteUserByClerkInputDTO): Promise<void> {
+    const user = await this.userRepository.findByClerkUserId(input.clerkUserId);
+    if (!user) throw new Error("User not found");
+    await this.userRepository.remove(user.id);
   }
 }

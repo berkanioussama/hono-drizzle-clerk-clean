@@ -1,12 +1,13 @@
 import { User } from "../../domain/user.entity"
-import { UserRepository } from "../../domain/user.repository"
-import { CreateUserInputDTO, CreateUserOutputDTO } from "../dto/create-user.dto"
+import { IUserRepository } from "../../domain/IUser.repository"
+import { CreateUserInputDTO } from "../dto/user-input.dto"
 import { UserMapper } from "../mappers/user.mapper"
+import { UserOutputDTO } from "../dto/user-output.dto";
 
 export class CreateUserUseCase {
-  constructor(private userRepository: UserRepository) {}
+  constructor(private userRepository: IUserRepository) {}
 
-  async execute(input: CreateUserInputDTO): Promise<CreateUserOutputDTO> {
+  async execute(input: CreateUserInputDTO): Promise<UserOutputDTO> {
 
     if (!input.name || input.name.trim().length < 2) {
       throw new Error("Name must be at least 2 characters.");
@@ -25,8 +26,8 @@ export class CreateUserUseCase {
       updatedAt: new Date(),
     });
 
-    const createdUser = await this.userRepository.create(user);
+    const createdUser = await this.userRepository.add(user)
 
-    return UserMapper.toDTO(createdUser);
+    return UserMapper.toDTO(createdUser)
   }
 }

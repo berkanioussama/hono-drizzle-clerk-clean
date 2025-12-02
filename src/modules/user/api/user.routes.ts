@@ -1,5 +1,5 @@
 import { Hono } from "hono";
-import { UserRepositoryDrizzle } from "../infrastructure/user-repository-drizzle";
+import { UserRepository } from "../infrastructure/user.repository";
 import { CreateUserUseCase } from "../application/commands/create-user.usecase";
 import { UpdateUserUseCase } from "../application/commands/update-user.usecase";
 import { DeleteUserUseCase } from "../application/commands/delete-user.usecase";
@@ -11,20 +11,16 @@ import { createUserSchema, updateUserSchema } from "./user.validator";
 
 export const userRoutes = new Hono();
 
-const userRepository = new UserRepositoryDrizzle();
+const userRepository = new UserRepository();
 
-const createUserUseCase = new CreateUserUseCase(userRepository);
-const updateUserUseCase = new UpdateUserUseCase(userRepository);
-const deleteUserUseCase = new DeleteUserUseCase(userRepository);
+const createUserUseCase  = new CreateUserUseCase(userRepository);
+const updateUserUseCase  = new UpdateUserUseCase(userRepository);
+const deleteUserUseCase  = new DeleteUserUseCase(userRepository);
 const getUserByIdUseCase = new GetUserByIdUseCase(userRepository);
 const getAllUsersUseCase = new GetAllUsersUseCase(userRepository);
 
 const userController = new UserController(
-  createUserUseCase,
-  getAllUsersUseCase,
-  getUserByIdUseCase,
-  updateUserUseCase,
-  deleteUserUseCase,
+  createUserUseCase, getAllUsersUseCase, getUserByIdUseCase, updateUserUseCase, deleteUserUseCase
 )
 
 userRoutes.post("/", zValidator('json', createUserSchema), (c) => userController.createUser(c))
