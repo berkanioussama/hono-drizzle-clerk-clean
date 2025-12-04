@@ -1,12 +1,11 @@
 import { User } from "../../domain/user.entity"
 import { IUserRepository } from "../../domain/IUser.repository"
 import { CreateUserInputDTO } from "../dto/user-input.dto"
-import { UserOutputDTO } from "../dto/user-output.dto"
 
 export class CreateUserByAuthProviderIdUseCase {
   constructor(private userRepository: IUserRepository) {}
 
-  async execute(input: CreateUserInputDTO): Promise<UserOutputDTO> {
+  async execute(input: CreateUserInputDTO) {
 
     const existingUser = await this.userRepository.findByAuthProviderId(input.authProviderId)
     if (existingUser) {
@@ -30,8 +29,6 @@ export class CreateUserByAuthProviderIdUseCase {
       updatedAt: new Date(),
     });
 
-    const createdUser = await this.userRepository.add(user)
-
-    return createdUser.toJSON()
+    await this.userRepository.add(user)
   }
 }
