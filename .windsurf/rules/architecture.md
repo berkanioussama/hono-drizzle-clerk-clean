@@ -25,8 +25,6 @@ src/
         -dto/
           -user-input.dto.ts
           -user-output.dto.ts
-        -mapper/
-          -user.mapper.ts
       -domain/
         -user.entity.ts
         -IUser.repository.ts
