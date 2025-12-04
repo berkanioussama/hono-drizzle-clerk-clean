@@ -1,5 +1,5 @@
 import { IUserRepository } from "../../domain/IUser.repository";
-import { UserMapper } from "../mappers/user.mapper";
+import { UserMapper } from "../mapper/user.mapper";
 import { UserOutputDTO } from "../dto/user-output.dto";
 import { GetUserInputDTO } from "../dto/user-input.dto";
 

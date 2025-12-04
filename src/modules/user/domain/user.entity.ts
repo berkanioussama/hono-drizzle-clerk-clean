@@ -39,5 +39,5 @@ export class User {
   get createdAt() { return this.props.createdAt }
   get updatedAt() { return this.props.updatedAt }
   
-  toJSON() { return this.props }
+  toJSON(): UserProps { return this.props }
 }

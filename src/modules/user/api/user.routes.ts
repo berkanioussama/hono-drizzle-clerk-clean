@@ -1,10 +1,10 @@
 import { Hono } from "hono";
 import { UserRepository } from "../infrastructure/user.repository";
-import { CreateUserUseCase } from "../application/commands/create-user.usecase";
-import { UpdateUserUseCase } from "../application/commands/update-user.usecase";
-import { DeleteUserUseCase } from "../application/commands/delete-user.usecase";
-import { GetUserByIdUseCase } from "../application/queries/get-user-by-id.usecase";
-import { GetAllUsersUseCase } from "../application/queries/get-all-users.usecase";
+import { CreateUserUseCase } from "../application/command/create-user.usecase";
+import { UpdateUserUseCase } from "../application/command/update-user.usecase";
+import { DeleteUserUseCase } from "../application/command/delete-user.usecase";
+import { GetUserByIdUseCase } from "../application/query/get-user-by-id.usecase";
+import { GetAllUsersUseCase } from "../application/query/get-all-users.usecase";
 import { UserController } from "./user.controller";
 import { zValidator } from "@hono/zod-validator";
 import { createUserSchema, updateUserSchema } from "./user.validator";

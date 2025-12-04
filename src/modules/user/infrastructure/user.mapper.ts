@@ -4,7 +4,6 @@ import { users } from "../../../shared/infrastructure/database/schema";
 
 type DBUser = InferSelectModel<typeof users>
     
-
 export class UserMapper {
     
     static toDomain(user: DBUser): User {

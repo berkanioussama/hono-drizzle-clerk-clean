@@ -1,10 +1,11 @@
 import { Context } from "hono";
-import { CreateUserUseCase } from "../application/commands/create-user.usecase";
-import { GetUserByIdUseCase } from "../application/queries/get-user-by-id.usecase";
-import { UpdateUserUseCase } from "../application/commands/update-user.usecase";
-import { DeleteUserUseCase } from "../application/commands/delete-user.usecase";
-import { GetAllUsersUseCase } from "../application/queries/get-all-users.usecase";
+import { CreateUserUseCase } from "../application/command/create-user.usecase";
+import { GetUserByIdUseCase } from "../application/query/get-user-by-id.usecase";
+import { UpdateUserUseCase } from "../application/command/update-user.usecase";
+import { DeleteUserUseCase } from "../application/command/delete-user.usecase";
+import { GetAllUsersUseCase } from "../application/query/get-all-users.usecase";
 import { ApiResponse } from "../../../shared/api/utils/api-response";
+import { handelError } from "../../../shared/api/utils/handel-error";
 
 export class UserController {
     constructor(
@@ -22,7 +23,7 @@ export class UserController {
             const user = await this.createUserUseCase.execute({authProviderId: auth.userId, ...data})
             return c.json(ApiResponse(user), 201)
         } catch (error) {
-            return c.json(ApiResponse("error creating user"), 400)
+            return handelError({c, error, message: "error creating user"})
         }
     }
 
@@ -31,7 +32,7 @@ export class UserController {
             const users = await this.getAllUsersUseCase.execute()
             return c.json(ApiResponse(users))
         } catch (error) {
-            return c.json(ApiResponse("error getting users"), 400)
+            return handelError({c, error, message: "error getting users"})
         }
     }
 
@@ -42,7 +43,7 @@ export class UserController {
             const user = await this.getUserByIdUseCase.execute({ id, authProviderId: auth.userId })
             return c.json(ApiResponse(user))
         } catch (error) {
-            return c.json(ApiResponse("error getting user"), 400)
+            return handelError({c, error, message: "error getting user"})
         }
     }
 
@@ -54,7 +55,7 @@ export class UserController {
             const user = await this.updateUserUseCase.execute({id, authProviderId: auth.userId, ...body})
             return c.json(ApiResponse(user))
         } catch (error) {
-            return c.json(ApiResponse("error updating user"), 400)
+            return handelError({c, error, message: "error updating user"})
         }
     }
 
@@ -64,7 +65,7 @@ export class UserController {
             await this.deleteUserUseCase.execute({ id })
             return c.json(ApiResponse("User deleted"))
         } catch (error) {
-            return c.json(ApiResponse("error deleting user"), 400)
+            return handelError({c, error, message: "error deleting user"})
         }
     }
 }

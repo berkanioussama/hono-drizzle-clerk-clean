@@ -1,6 +1,6 @@
 import { IUserRepository } from "../../domain/IUser.repository";
 import { UpdateUserInputDTO } from "../dto/user-input.dto";
-import { UserMapper } from "../mappers/user.mapper";
+import { UserMapper } from "../mapper/user.mapper";
 import { UserOutputDTO } from "../dto/user-output.dto";
 
 export class UpdateUserUseCase {

@@ -44,9 +44,9 @@ export class UserRepository implements IUserRepository {
     async findAll(): Promise<User[]> {
         const findedUsers = await db.select().from(users)
         return findedUsers.map(
-            findedUser =>
-                UserMapper.toDomain(findedUser)
+            findedUser => UserMapper.toDomain(findedUser)
         )
+
     }
     
     async edit(user: User): Promise<User> {
