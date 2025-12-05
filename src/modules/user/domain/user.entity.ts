@@ -11,6 +11,12 @@ export class User {
   private props: UserProps;
 
   constructor(props: UserProps) {
+    if(props.name.trim().length < 2) {
+      throw new Error("Name must be at least 2 characters.")
+    }
+    if(!props.email.trim().match(/^[^\s@]+@[^\s@]+\.[^\s@]+$/)) {
+      throw new Error("Invalid email.")
+    }
     this.props = props
   }
 
@@ -22,7 +28,7 @@ export class User {
   }
 
   changeEmail(newEmail: string) {
-    if (!newEmail || !newEmail.includes("@")) {
+    if(!newEmail.trim().match(/^[^\s@]+@[^\s@]+\.[^\s@]+$/)) {
       throw new Error("Invalid email.")
     }
     this.props.email = newEmail.trim()
