@@ -1,4 +1,4 @@
-import { pgTable, text, timestamp } from "drizzle-orm/pg-core";
+import { pgTable, text, timestamp, index } from "drizzle-orm/pg-core";
 
 export const users = pgTable("users", {
   id: text("id").primaryKey(),
@@ -7,4 +7,6 @@ export const users = pgTable("users", {
   email: text("email").notNull(),
   created_at: timestamp("created_at").notNull(),
   updated_at: timestamp("updated_at").notNull(),
-});
+}, (table) => [
+  index("auth_provider_id_index").on(table.auth_provider_id),
+])
