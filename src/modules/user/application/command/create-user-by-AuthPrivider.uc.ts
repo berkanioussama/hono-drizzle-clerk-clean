@@ -1,13 +1,13 @@
 import { User } from "../../domain/user.entity"
-import { IUserRepository } from "../../domain/IUser.repository"
+import { IUserAuthProviderRepo } from "../../domain/IUser-authProvider-repo"
 import { CreateUserInputDTO } from "../dto/user-input.dto"
 
-export class CreateUserByAuthProviderIdUseCase {
-  constructor(private userRepository: IUserRepository) {}
+export class CreateUserByAuthProviderIdUC {
+  constructor(private userAuthProviderRepo: IUserAuthProviderRepo) {}
 
   async execute(input: CreateUserInputDTO) {
 
-    const existingUser = await this.userRepository.findByAuthProviderId(input.authProviderId)
+    const existingUser = await this.userAuthProviderRepo.findById(input.authProviderId)
     if (existingUser) {
       throw new Error('User already exists')
     }
@@ -29,6 +29,6 @@ export class CreateUserByAuthProviderIdUseCase {
       updatedAt: new Date(),
     });
 
-    await this.userRepository.add(user)
+    await this.userAuthProviderRepo.add(user)
   }
 }

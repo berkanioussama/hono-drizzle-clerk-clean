@@ -1,11 +1,11 @@
 import { User } from "../domain/user.entity";
-import { IUserRepository } from "../domain/IUser.repository";
+import { IUserRepo } from "../domain/IUser.repo";
 import { db } from "../../../shared/infrastructure/database/db";
 import { users } from "../../../shared/infrastructure/database/schema";
 import { eq } from "drizzle-orm";
 import { UserMapper } from "./user.mapper";
 
-export class UserRepository implements IUserRepository {
+export class UserRepo implements IUserRepo {
     
     async add(user: User): Promise<User> {
         const insertedUser = await db.insert(users).values({
@@ -29,13 +29,6 @@ export class UserRepository implements IUserRepository {
     
     async findByEmail(email: string): Promise<User | null> {
         const findedUser = await db.select().from(users).where(eq(users.email, email)).limit(1);
-        if (findedUser.length === 0) return null
-
-        return UserMapper.toDomain(findedUser[0])
-    }
-
-    async findByAuthProviderId(authProviderId: string): Promise<User | null> {
-        const findedUser = await db.select().from(users).where(eq(users.auth_provider_id, authProviderId)).limit(1);
         if (findedUser.length === 0) return null
 
         return UserMapper.toDomain(findedUser[0])

@@ -1,10 +1,10 @@
 import { User } from "../../domain/user.entity"
-import { IUserRepository } from "../../domain/IUser.repository"
+import { IUserRepo } from "../../domain/IUser.repo"
 import { CreateUserInputDTO } from "../dto/user-input.dto"
 import { UserOutputDTO } from "../dto/user-output.dto";
 
-export class CreateUserUseCase {
-  constructor(private userRepository: IUserRepository) {}
+export class CreateUserUC {
+  constructor(private userRepository: IUserRepo) {}
 
   async execute(input: CreateUserInputDTO): Promise<UserOutputDTO> {
 

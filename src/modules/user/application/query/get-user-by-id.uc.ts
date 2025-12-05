@@ -1,9 +1,9 @@
-import { IUserRepository } from "../../domain/IUser.repository"
+import { IUserRepo } from "../../domain/IUser.repo"
 import { UserOutputDTO } from "../dto/user-output.dto"
 import { GetUserInputDTO } from "../dto/user-input.dto"
 
-export class GetUserByIdUseCase {
-  constructor(private userRepository: IUserRepository) {}
+export class GetUserByIdUC {
+  constructor(private userRepository: IUserRepo) {}
 
   async execute(input: GetUserInputDTO): Promise<UserOutputDTO | null> {
     if (!input.id || input.id.trim().length === 0) {

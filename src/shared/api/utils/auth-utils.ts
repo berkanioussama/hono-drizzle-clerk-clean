@@ -1,6 +1,6 @@
 import { getAuth } from "@hono/clerk-auth";
 import { Context } from "hono";
-import { UserAuthProviderRepository } from "../../../modules/user/infrastructure/user-auth-provider.repository";
+import { UserAuthProviderRepository } from "../../../modules/user/infrastructure/user-authProvider.repo";
 import { ApiResponse } from "./api-response";
 
 const userAuthProviderRepository = new UserAuthProviderRepository()

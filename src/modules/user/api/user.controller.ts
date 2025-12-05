@@ -1,19 +1,19 @@
 import { Context } from "hono";
-import { CreateUserUseCase } from "../application/command/create-user.usecase";
-import { GetUserByIdUseCase } from "../application/query/get-user-by-id.usecase";
-import { UpdateUserUseCase } from "../application/command/update-user.usecase";
-import { DeleteUserUseCase } from "../application/command/delete-user.usecase";
-import { GetAllUsersUseCase } from "../application/query/get-all-users.usecase";
+import { CreateUserUC } from "../application/command/create-user.uc";
+import { GetUserByIdUC } from "../application/query/get-user-by-id.uc";
+import { UpdateUserUC } from "../application/command/update-user.uc";
+import { DeleteUserUC } from "../application/command/delete-user.uc";
+import { GetAllUsersUC } from "../application/query/get-all-users.uc";
 import { ApiResponse } from "../../../shared/api/utils/api-response";
 import { handelError } from "../../../shared/api/utils/handel-error";
 
 export class UserController {
     constructor(
-        private createUserUseCase : CreateUserUseCase,
-        private getAllUsersUseCase: GetAllUsersUseCase,
-        private getUserByIdUseCase: GetUserByIdUseCase,
-        private updateUserUseCase : UpdateUserUseCase,
-        private deleteUserUseCase : DeleteUserUseCase
+        private createUserUseCase : CreateUserUC,
+        private getAllUsersUseCase: GetAllUsersUC,
+        private getUserByIdUseCase: GetUserByIdUC,
+        private updateUserUseCase : UpdateUserUC,
+        private deleteUserUseCase : DeleteUserUC
     ) {}
 
     async createUser(c: Context) {
