@@ -1,5 +1,5 @@
-import { IUserAuthProviderRepo } from "../../domain/IUser-authProvider-repo"
-import { GetUserByAuthProviderInputDTO } from "../dto/user-input.dto"
+import { IUserAuthProviderRepo } from "@/modules/user/domain/IUser-authProvider-repo"
+import { GetUserByAuthProviderInputDTO } from "@/modules/user/application/dto/user-input.dto"
 
 export class GetUserByAuthProviderIdUC {
     constructor(private userAuthProviderRepo: IUserAuthProviderRepo) {}

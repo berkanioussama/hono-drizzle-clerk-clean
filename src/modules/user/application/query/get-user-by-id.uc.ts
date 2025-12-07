@@ -1,6 +1,6 @@
-import { IUserRepo } from "../../domain/IUser.repo"
-import { UserOutputDTO } from "../dto/user-output.dto"
-import { GetUserInputDTO } from "../dto/user-input.dto"
+import { IUserRepo } from "@/modules/user/domain/IUser.repo"
+import { UserOutputDTO } from "@/modules/user/application/dto/user-output.dto"
+import { GetUserInputDTO } from "@/modules/user/application/dto/user-input.dto"
 
 export class GetUserByIdUC {
   constructor(private userRepository: IUserRepo) {}

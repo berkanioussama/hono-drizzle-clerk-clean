@@ -1,8 +1,8 @@
 import { getAuth } from "@hono/clerk-auth";
-import { ApiResponse } from "../../../shared/api/utils/api-response";
-import { handelError } from "../../../shared/api/utils/handel-error";
+import { ApiResponse } from "@/shared/api/utils/api-response";
+import { handelError } from "@/shared/api/utils/handel-error";
 import { Context } from "hono";
-import { GetUserByAuthProviderIdUC } from "../application/query/get-user-by-authProviderId.uc";
+import { GetUserByAuthProviderIdUC } from "@/modules/user/application/query/get-user-by-authProviderId.uc";
 
 export class UserAuthProviderController {
     constructor(

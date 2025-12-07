@@ -1,13 +1,13 @@
 import { Hono } from "hono";
-import { UserRepo } from "../infrastructure/user.repo";
-import { CreateUserUC } from "../application/command/create-user.uc";
-import { UpdateUserUC } from "../application/command/update-user.uc";
-import { DeleteUserUC } from "../application/command/delete-user.uc";
-import { GetUserByIdUC } from "../application/query/get-user-by-id.uc";
-import { GetAllUsersUC } from "../application/query/get-all-users.uc";
-import { UserController } from "./user.controller";
+import { UserRepo } from "@/modules/user/infrastructure/user.repo";
+import { CreateUserUC } from "@/modules/user/application/command/create-user.uc";
+import { UpdateUserUC } from "@/modules/user/application/command/update-user.uc";
+import { DeleteUserUC } from "@/modules/user/application/command/delete-user.uc";
+import { GetUserByIdUC } from "@/modules/user/application/query/get-user-by-id.uc";
+import { GetAllUsersUC } from "@/modules/user/application/query/get-all-users.uc";
+import { UserController } from "@/modules/user/api/user.controller";
 import { zValidator } from "@hono/zod-validator";
-import { createUserSchema, updateUserSchema } from "./user.validator";
+import { createUserSchema, updateUserSchema } from "@/modules/user/api/user.validator";
 
 export const userRoutes = new Hono();
 

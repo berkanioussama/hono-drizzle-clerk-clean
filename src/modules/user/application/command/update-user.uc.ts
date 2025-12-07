@@ -1,7 +1,7 @@
-import { IUserRepo } from "../../domain/IUser.repo";
-import { UpdateUserInputDTO } from "../dto/user-input.dto";
-import { UserOutputDTO } from "../dto/user-output.dto";
-import { Email } from "../../domain/user.vo";
+import { IUserRepo } from "@/modules/user/domain/IUser.repo";
+import { UpdateUserInputDTO } from "@/modules/user/application/dto/user-input.dto";
+import { UserOutputDTO } from "@/modules/user/application/dto/user-output.dto";
+import { Email } from "@/modules/user/domain/user.vo";
 
 export class UpdateUserUC {
   constructor(private userRepo: IUserRepo) {}

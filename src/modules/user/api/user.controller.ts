@@ -1,11 +1,11 @@
 import { Context } from "hono";
-import { CreateUserUC } from "../application/command/create-user.uc";
-import { GetUserByIdUC } from "../application/query/get-user-by-id.uc";
-import { UpdateUserUC } from "../application/command/update-user.uc";
-import { DeleteUserUC } from "../application/command/delete-user.uc";
-import { GetAllUsersUC } from "../application/query/get-all-users.uc";
-import { ApiResponse } from "../../../shared/api/utils/api-response";
-import { handelError } from "../../../shared/api/utils/handel-error";
+import { CreateUserUC } from "@/modules/user/application/command/create-user.uc";
+import { GetUserByIdUC } from "@/modules/user/application/query/get-user-by-id.uc";
+import { UpdateUserUC } from "@/modules/user/application/command/update-user.uc";
+import { DeleteUserUC } from "@/modules/user/application/command/delete-user.uc";
+import { GetAllUsersUC } from "@/modules/user/application/query/get-all-users.uc";
+import { ApiResponse } from "@/shared/api/utils/api-response";
+import { handelError } from "@/shared/api/utils/handel-error";
 import { getAuth } from "@hono/clerk-auth";
 
 export class UserController {

@@ -1,9 +1,9 @@
-import { User } from "../domain/user.entity";
-import { IUserRepo } from "../domain/IUser.repo";
-import { db } from "../../../shared/infrastructure/database/db";
-import { users } from "../../../shared/infrastructure/database/schema";
+import { User } from "@/modules/user/domain/user.entity";
+import { IUserRepo } from "@/modules/user/domain/IUser.repo";
+import { db } from "@/shared/infrastructure/database/db";
+import { users } from "@/shared/infrastructure/database/schema";
 import { eq } from "drizzle-orm";
-import { UserMapper } from "./user.mapper";
+import { UserMapper } from "@/modules/user/infrastructure/user.mapper";
 
 export class UserRepo implements IUserRepo {
     

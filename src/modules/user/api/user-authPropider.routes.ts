@@ -1,7 +1,7 @@
 import { Hono } from "hono";
-import { UserAuthProviderRepo } from "../infrastructure/user-authProvider.repo";
-import { GetUserByAuthProviderIdUC } from "../application/query/get-user-by-authProviderId.uc";
-import { UserAuthProviderController } from "./user-authProvider.controller";
+import { UserAuthProviderRepo } from "@/modules/user/infrastructure/user-authProvider.repo";
+import { GetUserByAuthProviderIdUC } from "@/modules/user/application/query/get-user-by-authProviderId.uc";
+import { UserAuthProviderController } from "@/modules/user/api/user-authProvider.controller";
 
 export const userAuthProviderRoutes = new Hono();
 

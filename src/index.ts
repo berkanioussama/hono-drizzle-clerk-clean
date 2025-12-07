@@ -1,3 +1,9 @@
-import app from "./app";
+import app from "@/app";
 
-export default app
+const PORT = 4000
+
+
+export default {
+    port: PORT,
+    fetch: app.fetch
+}

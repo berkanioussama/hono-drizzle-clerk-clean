@@ -1,4 +1,4 @@
-import { Email } from "./user.vo";
+import { Email } from "@/modules/user/domain/user.vo";
 
 export interface UserProps {
   id: string;

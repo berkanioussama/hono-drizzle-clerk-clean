@@ -1,5 +1,5 @@
-import { IUserRepo } from "../../domain/IUser.repo";
-import { DeleteUserInputDTO } from "../dto/user-input.dto";
+import { IUserRepo } from "@/modules/user/domain/IUser.repo";
+import { DeleteUserInputDTO } from "@/modules/user/application/dto/user-input.dto";
 
 export class DeleteUserUC {
   constructor(private userRepo: IUserRepo) {}
