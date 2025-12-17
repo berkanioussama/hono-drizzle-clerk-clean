@@ -11,7 +11,7 @@ export class UserMapper {
         const email = Email.create(user.email)
         return new User({
             id: user.id,
-            authProviderId: user.auth_provider_id,
+            providerId: user.provider_id,
             name: user.name,
             email: email,
             image: user.image,

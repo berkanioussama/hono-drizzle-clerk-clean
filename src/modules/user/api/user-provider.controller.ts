@@ -2,11 +2,11 @@ import { getAuth } from "@hono/clerk-auth";
 import { ApiResponse } from "@/shared/api/utils/api-response";
 import { handelError } from "@/shared/api/utils/handel-error";
 import { Context } from "hono";
-import { GetUserByAuthProviderIdUC } from "@/modules/user/application/query/get-user-by-authProviderId.uc";
+import { FindUserByProviderIdUC } from "@/modules/user/application/query/find-user-by-providerId.uc";
 
-export class UserAuthProviderController {
+export class UserProviderController {
     constructor(
-        private getUserByIdUC: GetUserByAuthProviderIdUC,
+        private findUserByIdUC: FindUserByProviderIdUC,
     ) {}
 
     async getUserById(c: Context) {
@@ -15,7 +15,7 @@ export class UserAuthProviderController {
             if(!auth || !auth.userId) throw new Error("Unauthorized, not connected")
             const id = c.req.param("id")
             if(id !== auth.userId) throw new Error("Unauthorized to access this user")
-            const user = await this.getUserByIdUC.execute({ authProviderId: auth.userId })
+            const user = await this.findUserByIdUC.execute({ providerId: auth.userId })
             return c.json(ApiResponse(user))
         } catch (error) {
             return handelError({c, error, message: "error getting user"})

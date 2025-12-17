@@ -1,12 +1,12 @@
 import { IUserRepo } from "@/modules/user/domain/IUser.repo";
-import { UpdateUserInputDTO } from "@/modules/user/application/dto/user-input.dto";
+import { EditUserInputDTO } from "@/modules/user/application/dto/user-input.dto";
 import { UserOutputDTO } from "@/modules/user/application/dto/user-output.dto";
 import { Email } from "@/modules/user/domain/user.vo";
 
-export class UpdateUserUC {
+export class EditUserUC {
   constructor(private userRepo: IUserRepo) {}
 
-  async execute(input: UpdateUserInputDTO): Promise<UserOutputDTO> {
+  async execute(input: EditUserInputDTO): Promise<UserOutputDTO> {
     
     const user = await this.userRepo.findById(input.id);
     if (!user) throw new Error("User not found")

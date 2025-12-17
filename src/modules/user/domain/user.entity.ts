@@ -4,7 +4,7 @@ export enum Role { USER = "user", ADMIN = "admin" }
 
 export interface UserProps {
   id: string;
-  authProviderId: string;
+  providerId: string;
   name: string;
   email: Email;
   image: string;
@@ -43,7 +43,7 @@ export class User {
   }
 
   get id() { return this.props.id }
-  get authProviderId() { return this.props.authProviderId }
+  get providerId() { return this.props.providerId }
   get name() { return this.props.name }
   get email() { return this.props.email.toString() }
   get image() { return this.props.image }

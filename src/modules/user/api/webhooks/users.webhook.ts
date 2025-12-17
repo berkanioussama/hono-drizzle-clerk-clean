@@ -1,8 +1,8 @@
 import { Hono } from 'hono';
 import { Webhook } from 'svix';
-import { UserAuthProviderRepo } from '@/modules/user/infrastructure/user-authProvider.repo';
-import { CreateUserByAuthProviderIdUC } from '@/modules/user/application/command/create-user-by-AuthPrivider.uc';
-import { DeleteUserByAuthProviderIdUC } from '@/modules/user/application/command/delete-user-by-AuthProvider.uc';
+import { UserProviderRepo } from '@/modules/user/infrastructure/user-provider.repo';
+import { AddUserByProviderUC } from '@/modules/user/application/command/add-user-by-provider.uc';
+import { RemoveUserByProviderIdUC } from '@/modules/user/application/command/remove-user-by-provider.uc';
 
 type ClerkWebhookEvent = {
   type: string;
@@ -16,9 +16,9 @@ const webhook = new Webhook(process.env.CLERK_WEBHOOK_SIGNING_SECRET || '');
 
 const clerkWebhook = new Hono();
 
-const userAuthProviderRepo = new UserAuthProviderRepo();
-const createUserByAuthProviderIdUC = new CreateUserByAuthProviderIdUC(userAuthProviderRepo);
-const deleteUserByAuthProviderIdUC = new DeleteUserByAuthProviderIdUC(userAuthProviderRepo);
+const userProviderRepo = new UserProviderRepo();
+const addUserByProviderUC = new AddUserByProviderUC(userProviderRepo);
+const removeUserByProviderIdUC = new RemoveUserByProviderIdUC(userProviderRepo);
 
 clerkWebhook.post('/', async (c) => {
   try {
@@ -46,14 +46,14 @@ clerkWebhook.post('/', async (c) => {
       
       // Process the event
       if (event.type === 'user.created' || event.type === 'user.updated') {
-        await createUserByAuthProviderIdUC.execute({
-          authProviderId: event.data.id,
+        await addUserByProviderUC.execute({
+          providerId: event.data.id,
           name: `${event.data.first_name || ''} ${event.data.last_name || ''}`.trim(),
           email: event.data.email_addresses?.[0]?.email_address,
           image: event.data.profile_image_url || '',
         });
       } else if (event.type === 'user.deleted') {
-        await deleteUserByAuthProviderIdUC.execute({authProviderId: event.data.id});
+        await removeUserByProviderIdUC.execute({providerId: event.data.id});
       }
 
       return c.text('Webhook processed successfully', 200);

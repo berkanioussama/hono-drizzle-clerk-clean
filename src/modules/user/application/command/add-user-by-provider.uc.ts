@@ -1,14 +1,14 @@
 import { Role, User } from "@/modules/user/domain/user.entity"
-import { IUserAuthProviderRepo } from "@/modules/user/domain/IUser-authProvider-repo"
-import { CreateUserInputDTO } from "@/modules/user/application/dto/user-input.dto"
+import { IUserProviderRepo } from "@/modules/user/domain/IUser-provider-repo"
+import { AddUserInputDTO } from "@/modules/user/application/dto/user-input.dto"
 import { Email } from "@/modules/user/domain/user.vo"
 
-export class CreateUserByAuthProviderIdUC {
-  constructor(private userAuthProviderRepo: IUserAuthProviderRepo) {}
+export class AddUserByProviderUC {
+  constructor(private userProviderRepo: IUserProviderRepo) {}
 
-  async execute(input: CreateUserInputDTO) {
+  async execute(input: AddUserInputDTO) {
 
-    const existingUser = await this.userAuthProviderRepo.findById(input.authProviderId)
+    const existingUser = await this.userProviderRepo.findById(input.providerId)
     if (existingUser) throw new Error('User already exists')
 
     if (!input.name || input.name.trim().length < 2) {
@@ -19,7 +19,7 @@ export class CreateUserByAuthProviderIdUC {
 
     const user = new User({
       id: crypto.randomUUID(),
-      authProviderId: input.authProviderId,
+      providerId: input.providerId,
       name: input.name,
       email: email,
       image: input.image,
@@ -28,6 +28,6 @@ export class CreateUserByAuthProviderIdUC {
       updatedAt: new Date(),
     });
 
-    await this.userAuthProviderRepo.add(user)
+    await this.userProviderRepo.add(user)
   }
 }

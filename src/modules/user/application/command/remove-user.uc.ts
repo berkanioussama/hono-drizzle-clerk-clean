@@ -1,10 +1,10 @@
 import { IUserRepo } from "@/modules/user/domain/IUser.repo";
-import { DeleteUserInputDTO } from "@/modules/user/application/dto/user-input.dto";
+import { RemoveUserInputDTO } from "@/modules/user/application/dto/user-input.dto";
 
-export class DeleteUserUC {
+export class RemoveUserUC {
   constructor(private userRepo: IUserRepo) {}
 
-  async execute(input: DeleteUserInputDTO): Promise<void> {
+  async execute(input: RemoveUserInputDTO): Promise<void> {
     const user = await this.userRepo.findById(input.id);
     if (!user) throw new Error("User not found");
 

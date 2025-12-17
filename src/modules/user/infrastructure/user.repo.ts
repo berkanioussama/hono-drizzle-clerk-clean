@@ -10,7 +10,7 @@ export class UserRepo implements IUserRepo {
     async add(user: User): Promise<User> {
         const insertedUser = await db.insert(users).values({
             id: user.id,
-            auth_provider_id: user.authProviderId,
+            provider_id: user.providerId,
             name: user.name,
             email: user.email,
             image: user.image,
@@ -19,6 +19,24 @@ export class UserRepo implements IUserRepo {
         }).returning();
 
         return UserMapper.toDomain(insertedUser[0]);
+    }
+
+    async edit(user: User): Promise<User> {
+        const updatedUser = await db.update(users).set({
+            name: user.name,
+            email: user.email,
+            updated_at: user.updatedAt,
+        }).where(eq(users.id, user.id)).returning();
+        
+        return UserMapper.toDomain(updatedUser[0]);
+    }
+
+    async findAll(): Promise<User[]> {
+        const findedUsers = await db.select().from(users)
+        return findedUsers.map(
+            findedUser => UserMapper.toDomain(findedUser)
+        )
+
     }
     
     async findById(id: string): Promise<User | null> {
@@ -33,24 +51,6 @@ export class UserRepo implements IUserRepo {
         if (findedUser.length === 0) return null
 
         return UserMapper.toDomain(findedUser[0])
-    }
-    
-    async findAll(): Promise<User[]> {
-        const findedUsers = await db.select().from(users)
-        return findedUsers.map(
-            findedUser => UserMapper.toDomain(findedUser)
-        )
-
-    }
-    
-    async edit(user: User): Promise<User> {
-        const updatedUser = await db.update(users).set({
-            name: user.name,
-            email: user.email,
-            updated_at: user.updatedAt,
-        }).where(eq(users.id, user.id)).returning();
-        
-        return UserMapper.toDomain(updatedUser[0]);
     }
 
     async remove(id: string): Promise<void> {

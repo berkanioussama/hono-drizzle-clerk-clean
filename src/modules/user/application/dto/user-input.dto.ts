@@ -1,35 +1,35 @@
-export interface CreateUserInputDTO {
-  authProviderId: string;
+export interface AddUserInputDTO {
+  providerId: string;
   name: string;
   email: string;
   image: string;
 }
 
-export interface GetUserInputDTO {
-  id: string;
-  authProviderId: string;
-}
-
-export interface GetUserByAuthProviderInputDTO {
-  authProviderId: string;
-}
-
-export interface GetUserByEmailInputDTO {
-  email: string;
-  authProviderId: string;
-}
-
-export interface UpdateUserInputDTO {
+export interface EditUserInputDTO {
   id: string;
   name?: string;   // optional
   email?: string;  // optional
   image?: string;  // optional
 }
 
-export interface DeleteUserInputDTO {
+export interface FindUserInputDTO {
+  id: string;
+  providerId: string;
+}
+
+export interface FindUserByProviderIdInputDTO {
+  providerId: string;
+}
+
+export interface FindUserByEmailInputDTO {
+  email: string;
+  providerId: string;
+}
+
+export interface RemoveUserInputDTO {
   id: string;
 }
 
-export interface DeleteUserByAuthProviderIdInputDTO {
-  authProviderId: string;
+export interface RemoveUserByProviderIdInputDTO {
+  providerId: string;
 }

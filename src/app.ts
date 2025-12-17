@@ -1,6 +1,6 @@
 import { clerkMiddleware } from "@hono/clerk-auth";
 import { userRoutes } from "@/modules/user/api/user.routes";
-import { userAuthProviderRoutes } from "@/modules/user/api/user-authPropider.routes";
+import { userProviderRoutes } from "@/modules/user/api/user-provider.routes";
 import { Hono } from "hono";
 import { logger } from "hono/logger";
 import { secureHeaders } from "hono/secure-headers";
@@ -27,7 +27,7 @@ app.use("*", requireAuth())
 app.use("*", limiter)
 
 app.route("/api/v1/users", userRoutes);
-app.route("/api/v1/users/authProvider", userAuthProviderRoutes);
+app.route("/api/v1/users/provider", userProviderRoutes);
 
 app.get("/", (c) => c.json({ message: "API is running..." }))
 app.notFound((c) => { return c.json({ message: 'No route found' }, 404) })
