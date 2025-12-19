@@ -2,7 +2,7 @@ import { getAuth } from "@hono/clerk-auth";
 import { ApiResponse } from "@/shared/api/utils/api-response";
 import { handelError } from "@/shared/api/utils/handel-error";
 import { Context } from "hono";
-import { FindUserByProviderIdUC } from "@/modules/user/application/query/find-user-by-providerId.uc";
+import { FindUserByProviderIdUC } from "@/modules/user/application/query/find-user-by-provider-id.uc";
 
 export class UserProviderController {
     constructor(

@@ -36,6 +36,9 @@ export class User {
     this.props.email = newEmail
   }
   changeImage(newImage: string) {
+    if (!newImage || newImage.trim().length < 3) {
+      throw new Error("Invalid image URL.")
+    }
     this.props.image = newImage
   }
   changeUpdatedAt(newUpdatedAt: Date) {

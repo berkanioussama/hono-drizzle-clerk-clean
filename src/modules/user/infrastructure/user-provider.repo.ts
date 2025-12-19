@@ -3,7 +3,7 @@ import { db } from "@/shared/infrastructure/database/db";
 import { users } from "@/shared/infrastructure/database/schema";
 import { eq } from "drizzle-orm";
 import { UserMapper } from "./user.mapper";
-import { IUserProviderRepo } from "@/modules/user/domain/IUser-provider-repo";
+import { IUserProviderRepo } from "@/modules/user/domain/IUser-provider.repo";
 
 export class UserProviderRepo implements IUserProviderRepo {
 

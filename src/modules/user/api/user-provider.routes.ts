@@ -1,6 +1,6 @@
 import { Hono } from "hono";
 import { UserProviderRepo } from "@/modules/user/infrastructure/user-provider.repo";
-import { FindUserByProviderIdUC } from "@/modules/user/application/query/find-user-by-providerId.uc";
+import { FindUserByProviderIdUC } from "@/modules/user/application/query/find-user-by-provider-id.uc";
 import { UserProviderController } from "@/modules/user/api/user-provider.controller";
 
 export const userProviderRoutes = new Hono();

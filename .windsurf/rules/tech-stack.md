@@ -4,11 +4,11 @@ trigger: always_on
 
 Tech stack
 
-- Hono
-- Bun
-- TypeScript
-- Drizzle
+- Hono v4
+- Bun v1.3
+- TypeScript v5
+- Drizzle v0.44
 - Neon (PostgreSQL)
-- Clerk
+- Clerk v6
 - svix
-- Zod
+- Zod v4

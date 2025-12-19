@@ -11,6 +11,10 @@ src/
 │       ├── domain/         # Business logic
 │       └── infrastructure/ # External implementations
 ├── shared/                 # Shared code across modules
+│    ├── api/               
+│    ├── application/        
+│    ├── domain/             
+│    └── infrastructure/    
 ├── app.ts                  # Main application file
 ├── drizzle.config.ts       # ORM configuration
 └── .env                    # Environment variables

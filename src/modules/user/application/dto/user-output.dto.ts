@@ -2,7 +2,7 @@ import { Role } from "@/modules/user/domain/user.entity";
 
 export interface UserOutputDTO {
   id: string;
-  authProviderId: string;
+  providerId: string;
   name: string;
   email: string;
   image: string;
