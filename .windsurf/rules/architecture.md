@@ -2,56 +2,37 @@
 trigger: always_on
 ---
 
-Architecture
+# Architecture
 
-use Clean Architecture
+We are building a backend API, Frontend is a separate Next.js app
+Architecture: Clean Architecture
 
-folder structure
+- Application layer contains use cases, dto, and business rules.
+- Domain layer contains entities, value objects and repository interfaces, must not depend on any other layer.
+- Infrastructure layer contains concrete implementations of repositories, mappers, depends on Domain.
+- Api layer contains controllers, validators, routes, middlewares, webhooks, depends on Application.
+
+# Folder structure:
 
 src/
 ├── modules/
 │   └── user/
 │   │   ├── api/
-│   │   │   ├── webhook/
-│   │   │   │   └── use.webhook.ts
-│   │   │   ├── user.controller.ts
-│   │   │   ├── user.validator.ts
-│   │   │   └── user.routes.ts
 │   │   ├── application/
 │   │   │    └── commands/
-│   │   │    │   ├── add-user.uc.ts
-│   │   │    │   ├── edit-user.uc.ts
-│   │   │    │   └── remove-user.uc.ts
 │   │   │    └── query/
-│   │   │    │   ├── find-all-users.uc.ts
-│   │   │    │   └── find-user-by-id.uc.ts
 │   │   │    └── dto/
-│   │   │        ├── user-input.dto.ts
-│   │   │        └── user-output.dto.ts
 │   │   ├── domain/
-│   │   │   ├── IUser.repo.ts
-│   │   │   ├── user.entity.ts
-│   │   │   └── user.vo.ts
 │   │   └── infrastructure/
-│   │       ├── user-mapper.ts
-│   │       └── user-repo.ts
 │   └── other module
 ├── shared/
 │   ├── api/
 │   │   ├── middlewares/
-│   │   │   ├── clerk-require-auth.ts
-│   │   │   └── rate-limiter.ts
 │   │   └── utils/
-│   │       ├── api-response.ts
-│   │       ├── auth-utils.ts
-│   │       └── handel-error.ts
 │   ├── application/
 │   ├── domain/
 │   └── infrastructure/
 │       └── database/
-│           ├── db.ts
-│           └── schema.ts
 ├── app.ts
 ├── index.ts
-├── .env
-└── drizzle.config.ts
+└── .env

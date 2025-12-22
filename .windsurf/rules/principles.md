@@ -2,6 +2,10 @@
 trigger: always_on
 ---
 
+This is for a production app, not a demo
+Optimize for long-term maintainability
+Assume I’ll have multiple modules later
+
 A Guide to Principles and Best Practices
 
 - Readability and maintenance
