@@ -1,5 +1,5 @@
 import { IUserProviderRepo } from "@/modules/user/domain/IUser-provider.repo";
-import { RemoveUserByProviderIdInputDTO } from "@/modules/user/application/dto/user-input.dto";
+import { RemoveUserByProviderIdInputDTO } from "@/modules/user/application/dto/user.dto";
 
 export class RemoveUserByProviderIdUC {
   constructor(private userProviderRepo: IUserProviderRepo) {}

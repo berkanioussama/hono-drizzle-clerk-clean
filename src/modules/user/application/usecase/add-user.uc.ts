@@ -1,7 +1,7 @@
 import { Role, User } from "@/modules/user/domain/user.entity"
 import { IUserRepo } from "@/modules/user/domain/IUser.repo"
-import { AddUserInputDTO } from "@/modules/user/application/dto/user-input.dto"
-import { UserOutputDTO } from "@/modules/user/application/dto/user-output.dto";
+import { AddUserInputDTO } from "@/modules/user/application/dto/user.dto"
+import { UserOutputDTO } from "@/modules/user/application/dto/user.dto";
 import { Email } from "@/modules/user/domain/user.vo";
 
 export class AddUserUC {

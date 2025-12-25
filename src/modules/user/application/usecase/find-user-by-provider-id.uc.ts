@@ -1,5 +1,5 @@
 import { IUserProviderRepo } from "@/modules/user/domain/IUser-provider.repo"
-import { FindUserByProviderIdInputDTO } from "@/modules/user/application/dto/user-input.dto"
+import { FindUserByProviderIdInputDTO } from "@/modules/user/application/dto/user.dto"
 
 export class FindUserByProviderIdUC {
     constructor(private userProviderRepo: IUserProviderRepo) {}
