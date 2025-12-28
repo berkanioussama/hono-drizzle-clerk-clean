@@ -1,13 +1,12 @@
 import { User } from "@/modules/user/domain/user.entity"
 import { IUserRepo } from "@/modules/user/domain/IUser.repo"
-import { AddUserInputDTO } from "@/modules/user/application/dto/user.dto"
-import { UserOutputDTO } from "@/modules/user/application/dto/user.dto";
+import { AddUserDTO, UserDTO } from "@/modules/user/application/dto/user.dto"
 import { Email } from "@/modules/user/domain/user.vo";
 
 export class AddUserUC {
   constructor(private userRepository: IUserRepo) {}
 
-  async execute(input: AddUserInputDTO): Promise<UserOutputDTO> {
+  async execute(input: AddUserDTO): Promise<UserDTO> {
 
     const email = Email.create(input.email)
 

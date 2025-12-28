@@ -1,11 +1,11 @@
 import { IUserRepo } from "@/modules/user/domain/IUser.repo"
-import { UserOutputDTO } from "@/modules/user/application/dto/user.dto"
-import { FindUserInputDTO } from "@/modules/user/application/dto/user.dto"
+import { UserDTO } from "@/modules/user/application/dto/user.dto"
+import { FindUserDTO } from "@/modules/user/application/dto/user.dto"
 
 export class FindUserByIdUC {
   constructor(private userRepository: IUserRepo) {}
 
-  async execute({id, providerId}: FindUserInputDTO): Promise<UserOutputDTO | null> {
+  async execute({id, providerId}: FindUserDTO): Promise<UserDTO | null> {
     if (!id || id.trim().length === 0) {
       throw new Error("Invalid ID");
     }

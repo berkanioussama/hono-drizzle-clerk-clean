@@ -1,6 +1,6 @@
 import { Role } from "@/modules/user/domain/user.entity";
 
-export interface UserOutputDTO {
+export interface UserDTO {
   id: string;
   providerId: string;
   name: string;
@@ -11,18 +11,18 @@ export interface UserOutputDTO {
   updatedAt: Date;
 }
 
-export type AddUserInputDTO = Omit<UserOutputDTO, 'id' | 'role' | 'createdAt' | 'updatedAt'>;
+export type AddUserDTO = Omit<UserDTO, 'id' | 'role' | 'createdAt' | 'updatedAt'>;
 
-export type EditUserInputDTO =
-  Pick<UserOutputDTO, 'id' | 'providerId'> &
-  Partial< Omit<UserOutputDTO, 'id' | 'providerId' | 'role' | 'createdAt' | 'updatedAt'> >;
+export type EditUserDTO =
+  Pick<UserDTO, 'id' | 'providerId'> &
+  Partial< Omit<UserDTO, 'id' | 'providerId' | 'role' | 'createdAt' | 'updatedAt'> >;
 
-export type FindUserInputDTO = Pick<UserOutputDTO, 'id' | 'providerId'>
+export type FindUserDTO = Pick<UserDTO, 'id' | 'providerId'>
 
-export type FindUserByProviderIdInputDTO = Pick<UserOutputDTO, 'providerId'>
+export type FindUserByProviderIdDTO = Pick<UserDTO, 'providerId'>
 
-export type FindUserByEmailInputDTO = Pick<UserOutputDTO, 'email' | 'providerId'>
+export type FindUserByEmailDTO = Pick<UserDTO, 'email' | 'providerId'>
 
-export type RemoveUserInputDTO = Pick<UserOutputDTO, 'id'>
+export type RemoveUserDTO = Pick<UserDTO, 'id'>
 
-export type RemoveUserByProviderIdInputDTO = Pick<UserOutputDTO, 'providerId'>
+export type RemoveUserByProviderIdDTO = Pick<UserDTO, 'providerId'>

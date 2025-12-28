@@ -1,11 +1,10 @@
 import { IUserRepo } from "@/modules/user/domain/IUser.repo"
-import { UserOutputDTO } from "@/modules/user/application/dto/user.dto"
-import { FindUserByEmailInputDTO } from "@/modules/user/application/dto/user.dto"
+import { UserDTO, FindUserByEmailDTO } from "@/modules/user/application/dto/user.dto"
 
 export class FindUserByEmailUC {
   constructor(private userRepo: IUserRepo) {}
   
-  async execute({email, providerId}: FindUserByEmailInputDTO): Promise<UserOutputDTO | null> {
+  async execute({email, providerId}: FindUserByEmailDTO): Promise<UserDTO | null> {
     if (!email || email.trim().length === 0) {
       throw new Error("Invalid email");
     }

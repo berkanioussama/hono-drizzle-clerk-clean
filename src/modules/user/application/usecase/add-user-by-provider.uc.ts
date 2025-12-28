@@ -1,12 +1,12 @@
 import { User } from "@/modules/user/domain/user.entity"
 import { IUserRepo } from "@/modules/user/domain/IUser.repo"
-import { AddUserInputDTO } from "@/modules/user/application/dto/user.dto"
+import { AddUserDTO } from "@/modules/user/application/dto/user.dto"
 import { Email } from "@/modules/user/domain/user.vo"
 
 export class AddUserByProviderUC {
   constructor(private userRepo: IUserRepo) {}
 
-  async execute(input: AddUserInputDTO) {
+  async execute(input: AddUserDTO) {
 
     const existingUser = await this.userRepo.findByProviderId(input.providerId)
     if (existingUser) throw new Error('User already exists')
