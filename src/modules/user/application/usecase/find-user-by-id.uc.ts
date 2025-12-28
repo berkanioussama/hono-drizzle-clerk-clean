@@ -5,16 +5,16 @@ import { FindUserInputDTO } from "@/modules/user/application/dto/user.dto"
 export class FindUserByIdUC {
   constructor(private userRepository: IUserRepo) {}
 
-  async execute(input: FindUserInputDTO): Promise<UserOutputDTO | null> {
-    if (!input.id || input.id.trim().length === 0) {
+  async execute({id, providerId}: FindUserInputDTO): Promise<UserOutputDTO | null> {
+    if (!id || id.trim().length === 0) {
       throw new Error("Invalid ID");
     }
 
-    const user = await this.userRepository.findById(input.id);
-
+    const user = await this.userRepository.findById(id);
     if (!user) return null;
-    if (user.providerId !== input.providerId) {
-      throw new Error("Unauthorized");
+
+    if (user.providerId !== providerId) {
+      throw new Error("Unauthorized to access this resource");
     }
 
     return user.toJSON();

@@ -1,12 +1,13 @@
-import { IUserProviderRepo } from "@/modules/user/domain/IUser-provider.repo";
+import { IUserRepo } from "@/modules/user/domain/IUser.repo";
 import { RemoveUserByProviderIdInputDTO } from "@/modules/user/application/dto/user.dto";
 
 export class RemoveUserByProviderIdUC {
-  constructor(private userProviderRepo: IUserProviderRepo) {}
+  constructor(private userRepo: IUserRepo) {}
 
-  async execute(input: RemoveUserByProviderIdInputDTO): Promise<void> {
-    const user = await this.userProviderRepo.findById(input.providerId);
+  async execute({providerId}: RemoveUserByProviderIdInputDTO): Promise<void> {
+    const user = await this.userRepo.findByProviderId(providerId);
     if (!user) throw new Error("User not found");
-    await this.userProviderRepo.remove(user.providerId);
+    
+    await this.userRepo.removeByProviderId(providerId);
   }
 }

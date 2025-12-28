@@ -11,9 +11,6 @@ export class EditUserUC {
     if (!user) throw new Error("User not found")
     
     if (input.name) {
-      if (!input.name || input.name.trim().length < 2) {
-        throw new Error('Name must be at least 2 characters.')
-      }
       user.changeName(input.name)
     }
 
@@ -22,13 +19,8 @@ export class EditUserUC {
       user.changeEmail(email)
     }
     if (input.image) {
-      if (!input.image || input.image.trim().length === 0) {
-        throw new Error('Image URL cannot be empty.')
-      }
       user.changeImage(input.image)
     }
-
-    user.changeUpdatedAt(new Date())
 
     const updatedUser = await this.userRepo.edit(user)
 

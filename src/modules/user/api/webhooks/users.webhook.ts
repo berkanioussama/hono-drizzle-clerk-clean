@@ -1,6 +1,6 @@
 import { Hono } from 'hono';
 import { Webhook } from 'svix';
-import { UserProviderRepo } from '@/modules/user/infrastructure/user-provider.repo';
+import { UserRepo } from '@/modules/user/infrastructure/user.repo';
 import { AddUserByProviderUC } from '@/modules/user/application/usecase/add-user-by-provider.uc';
 import { RemoveUserByProviderIdUC } from '@/modules/user/application/usecase/remove-user-by-provider.uc';
 
@@ -16,9 +16,9 @@ const webhook = new Webhook(process.env.CLERK_WEBHOOK_SIGNING_SECRET || '');
 
 const clerkWebhook = new Hono();
 
-const userProviderRepo = new UserProviderRepo();
-const addUserByProviderUC = new AddUserByProviderUC(userProviderRepo);
-const removeUserByProviderIdUC = new RemoveUserByProviderIdUC(userProviderRepo);
+const userRepo = new UserRepo();
+const addUserByProviderUC = new AddUserByProviderUC(userRepo);
+const removeUserByProviderIdUC = new RemoveUserByProviderIdUC(userRepo);
 
 clerkWebhook.post('/', async (c) => {
   try {

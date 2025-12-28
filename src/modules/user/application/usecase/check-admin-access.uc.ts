@@ -1,13 +1,13 @@
-import { IUserProviderRepo } from "@/modules/user/domain/IUser-provider.repo";
+import { IUserRepo } from "@/modules/user/domain/IUser.repo";
 
 export class CheckAdminAccessUC {
-  constructor(private userProviderRepo: IUserProviderRepo) {}
+  constructor(private userRepo: IUserRepo) {}
 
     async execute(userProviderId: string): Promise<boolean> {
         if (!userProviderId) {
             throw new Error("No user provider id provided");
         }
-        const user = await this.userProviderRepo.findById(userProviderId);
+        const user = await this.userRepo.findByProviderId(userProviderId);
         return user?.role === 'admin';
     }
 }

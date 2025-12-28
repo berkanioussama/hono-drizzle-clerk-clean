@@ -5,15 +5,16 @@ import { FindUserByEmailInputDTO } from "@/modules/user/application/dto/user.dto
 export class FindUserByEmailUC {
   constructor(private userRepo: IUserRepo) {}
   
-  async execute(input: FindUserByEmailInputDTO): Promise<UserOutputDTO | null> {
-    if (!input.email || input.email.trim().length === 0) {
+  async execute({email, providerId}: FindUserByEmailInputDTO): Promise<UserOutputDTO | null> {
+    if (!email || email.trim().length === 0) {
       throw new Error("Invalid email");
     }
 
-    const user = await this.userRepo.findByEmail(input.email)
+    const user = await this.userRepo.findByEmail(email)
     if (!user) return null;
-    if (user.providerId !== input.providerId) {
-        throw new Error("Unauthorized")
+
+    if (user.providerId !== providerId) {
+      throw new Error("Unauthorized to access this resource")
     }
     return user.toJSON()
   }

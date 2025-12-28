@@ -9,7 +9,7 @@ export class UserMapper {
     
     static toDomain(user: DBUser): User {
         const email = Email.create(user.email)
-        return new User({
+        return User.fromPersistence({
             id: user.id,
             providerId: user.providerId,
             name: user.name,

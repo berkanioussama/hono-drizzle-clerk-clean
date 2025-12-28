@@ -46,6 +46,13 @@ export class UserRepo implements IUserRepo {
 
         return UserMapper.toDomain(findedUser[0])
     }
+
+    async findByProviderId(providerId: string): Promise<User | null> {
+        const findedUser = await db.select().from(users).where(eq(users.providerId, providerId)).limit(1);
+        if (findedUser.length === 0) return null
+
+        return UserMapper.toDomain(findedUser[0])
+    }
     
     async findByEmail(email: string): Promise<User | null> {
         const findedUser = await db.select().from(users).where(eq(users.email, email)).limit(1);
@@ -56,5 +63,9 @@ export class UserRepo implements IUserRepo {
 
     async remove(id: string): Promise<void> {
         await db.delete(users).where(eq(users.id, id));
+    }
+    
+    async removeByProviderId(providerId: string): Promise<void> {
+        await db.delete(users).where(eq(users.providerId, providerId));
     }
 }

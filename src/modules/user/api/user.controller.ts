@@ -2,6 +2,7 @@ import { Context } from "hono";
 import { AddUserUC } from "@/modules/user/application/usecase/add-user.uc";
 import { EditUserUC } from "@/modules/user/application/usecase/edit-user.uc";
 import { FindUserByIdUC } from "@/modules/user/application/usecase/find-user-by-id.uc";
+import { FindUserByProviderIdUC } from "@/modules/user/application/usecase/find-user-by-provider-id.uc";
 import { RemoveUserUC } from "@/modules/user/application/usecase/remove-user.uc";
 import { FindAllUsersUC } from "@/modules/user/application/usecase/find-all-users.uc";
 import { ApiResponse } from "@/shared/api/utils/api-response";
@@ -15,6 +16,7 @@ export class UserController {
         private editUserUC : EditUserUC,
         private findAllUsersUC: FindAllUsersUC,
         private findUserByIdUC: FindUserByIdUC,
+        private findUserByProviderIdUC: FindUserByProviderIdUC,
         private removeUserUC : RemoveUserUC
     ) {}
 
@@ -62,6 +64,17 @@ export class UserController {
             if(!auth?.userId) return c.json(ApiResponse("Unauthorized, not connected"), 401)
             const id = c.req.param("id");
             const user = await this.findUserByIdUC.execute({ id, providerId: auth.userId })
+            return c.json(ApiResponse(user))
+        } catch (error) {
+            return errorHandler({c, error, message: "server error getting user"})
+        }
+    }
+
+    async findUserByProviderId(c: Context) {
+        try {
+            const auth = await getAuth(c)
+            if(!auth?.userId) return c.json(ApiResponse("Unauthorized, not connected"), 401)
+            const user = await this.findUserByProviderIdUC.execute({providerId: auth.userId })
             return c.json(ApiResponse(user))
         } catch (error) {
             return errorHandler({c, error, message: "server error getting user"})

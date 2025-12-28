@@ -5,6 +5,8 @@ export interface IUserRepo {
   edit(user: User): Promise<User>
   findAll(): Promise<User[]>
   findById(id: string): Promise<User | null>
+  findByProviderId(providerId: string): Promise<User | null>
   findByEmail(email: string): Promise<User | null>
   remove(id: string): Promise<void>
+  removeByProviderId(providerId: string): Promise<void>
 }
