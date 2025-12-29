@@ -26,6 +26,7 @@ export class UserRepo implements IUserRepo {
         const updatedUser = await db.update(users).set({
             name: user.name,
             email: user.email,
+            image: user.image,
             updatedAt: user.updatedAt,
         }).where(eq(users.id, user.id)).returning();
         

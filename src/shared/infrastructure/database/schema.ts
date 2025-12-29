@@ -12,6 +12,6 @@ export const users = pgTable("users", {
   createdAt: timestamp("created_at").notNull(),
   updatedAt: timestamp("updated_at").notNull(),
 }, (table) => [
-  index("users_provider_id_index").on(table.providerId),
+  index("users_provider_id_idx").on(table.providerId),
   index('users_role_idx').on(table.role),
 ])

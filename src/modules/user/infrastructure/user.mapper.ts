@@ -7,17 +7,17 @@ type DBUser = InferSelectModel<typeof users>
     
 export class UserMapper {
     
-    static toDomain(user: DBUser): User {
-        const email = Email.create(user.email)
+    static toDomain(dbUser: DBUser): User {
+        const email = Email.create(dbUser.email)
         return User.fromPersistence({
-            id: user.id,
-            providerId: user.providerId,
-            name: user.name,
+            id: dbUser.id,
+            providerId: dbUser.providerId,
+            name: dbUser.name,
             email: email,
-            image: user.image,
-            role: user.role as Role,
-            createdAt: new Date(user.createdAt),
-            updatedAt: new Date(user.updatedAt),
+            image: dbUser.image,
+            role: dbUser.role as Role,
+            createdAt: new Date(dbUser.createdAt),
+            updatedAt: new Date(dbUser.updatedAt),
         });
     }
 }
