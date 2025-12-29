@@ -24,10 +24,9 @@ export class UserController {
         try {
             const auth = await getAuth(c)
             if(!auth) return c.json(ApiResponse("Unauthorized, not connected"), 401)
-            const body = await c.req.json()
-            const result = AddUserSchema.safeParse(body)
-            if(!result.success) return c.json(ApiResponse("Invalid data"))
-            const user = await this.addUserUC.execute(result.data)
+            const body = AddUserSchema.safeParse(await c.req.json())
+            if(!body.success) return c.json(ApiResponse("Invalid request data"))
+            const user = await this.addUserUC.execute(body.data)
             return c.json(ApiResponse(user), 201)
         } catch (error) {
             return errorHandler({c, error, message: "server error creating user"})
@@ -37,10 +36,9 @@ export class UserController {
         try {
             const auth = await getAuth(c)
             if(!auth) return c.json(ApiResponse("Unauthorized, not connected"), 401)
-            const body = await c.req.json()
-            const result = EditUserSchema.safeParse(body)
-            if(!result.success) return c.json(ApiResponse("Invalid data"))
-            const user = await this.editUserUC.execute(result.data)
+            const body = EditUserSchema.safeParse(await c.req.json())
+            if(!body.success) return c.json(ApiResponse("Invalid request data"))
+            const user = await this.editUserUC.execute(body.data)
             return c.json(ApiResponse(user))
         } catch (error) {
             return errorHandler({c, error, message: "server error updating user"})
@@ -80,7 +78,6 @@ export class UserController {
             return errorHandler({c, error, message: "server error getting user"})
         }
     }
-
 
     async removeUser(c: Context) {
         try {

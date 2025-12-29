@@ -1,6 +1,5 @@
 import { z } from "zod";
-
-export enum Role { USER = "user", ADMIN = "admin" }
+import { Role } from "@/modules/user/domain/user.entity";
 
 export const UserSchema = z.object({
   id: z.string().min(2, { message: "ID must be at least 2 characters." }),
