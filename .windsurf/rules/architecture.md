@@ -2,36 +2,27 @@
 trigger: always_on
 ---
 
-# Architecture
+## Architecture
 
-We are building a backend API, Frontend is a separate Next.js app
-Architecture: Clean Architecture
+We are building a backend API using Clean Architecture
 
-- Application layer contains use cases, dto, and business rules.
-- Domain layer contains entities, value objects and repository interfaces, must not depend on any other layer.
-- Infrastructure layer contains concrete implementations of repositories, mappers, depends on Domain.
-- Api layer contains controllers, validators, routes, middlewares, webhooks, depends on Application.
+- **Api layer**: contains controllers, validators, routes, middlewares, webhooks, depends on Application.
+- **Application layer**: contains use cases, dto, and business rules.
+- **Domain layer**: contains entities, value objects and repository interfaces, must not depend on any other layer.
+- **Infrastructure layer**: contains concrete implementations of repositories, mappers, depends on Domain.
 
-# Folder structure:
+---
 
-src/
-├── modules/
-│   └── user/
-│   │   ├── api/
-│   │   ├── application/
-│   │   │    └── usecase/
-│   │   │    └── dto/
-│   │   ├── domain/
-│   │   └── infrastructure/
-│   └── other module
-├── shared/
-│   ├── api/
-│   │   ├── middlewares/
-│   │   └── utils/
-│   ├── application/
-│   ├── domain/
-│   └── infrastructure/
-│       └── database/
-├── app.ts
-├── index.ts
-└── .env
+## Technology Stack
+
+- **Backend**: Bun v1.3 + Hono v4 + TypeScript v5
+- **Database**: Neon (PostgreSQL), Drizzle ORM v0.45
+- **Auth**: Clerk v6
+- **Validation**: Zod v4
+- **Hosting / Deployment**: Vercel
+
+---
+
+## Database Tables
+
+- **users**: (id, providerId, name, email, image, role, createdAt, updatedAt)

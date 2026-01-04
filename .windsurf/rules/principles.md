@@ -2,23 +2,16 @@
 trigger: always_on
 ---
 
-This is for a production app, not a demo
-Optimize for long-term maintainability
-Assume I’ll have multiple modules later
+## A Guide to Principles and Best Practices
 
-A Guide to Principles and Best Practices
-
-- Readability and maintenance
-- Team collaboration
-- Debugging and issue resolution
-- Improved quality and reliability
-- Avoid Hard-Coded Numbers
-- Use Meaningful and Descriptive Names
+- Think like a senior developer, This is for a production app, not a demo.
+- If something is unclear, ASK instead of guessing.
+- write maintainable code, and prioritize long-term quality over quick fixes.
+- Do not use old or deprecated patterns
+- Follow the DRY (Don't Repeat Yourself) Principle and Avoid Duplicating Code or Logic
+- Consider security, validate inputs, handle sensitive data carefully, and avoid common vulnerabilities.
 - Use Comments Sparingly, and When You Do, Make Them Meaningful
 - Write Short Functions That Only Do One Thing
-- Follow the DRY (Don't Repeat Yourself) Principle and Avoid Duplicating Code or Logic
-- Follow Established Code-Writing Standards
-- Encapsulate Nested Conditionals into Functions
+- Use Meaningful and Descriptive Names
+- Avoid Hard-Coded Numbers
 - Refactor Continuously
-- Use Version Control
-- If something is unclear, ASK instead of guessing.
