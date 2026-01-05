@@ -1,6 +1,6 @@
-import { IUserRepo } from "@/modules/user/domain/IUser.repo";
-import { Email } from "@/modules/user/domain/user.vo";
-import { EditUserDTO, UserDTO } from "@/modules/user/application/dto/user.dto";
+import { IUserRepo } from "../../domain/IUser.repo";
+import { Email } from "../../domain/user.vo";
+import { EditUserDTO, UserDTO } from "../dto/user.dto";
 
 export class EditUserUC {
   constructor(private userRepo: IUserRepo) {}

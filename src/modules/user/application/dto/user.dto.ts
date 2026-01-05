@@ -1,4 +1,4 @@
-import { Role } from "@/modules/user/domain/user.entity";
+import { Role } from "../../domain/user.entity";
 
 export interface UserDTO {
   id: string;

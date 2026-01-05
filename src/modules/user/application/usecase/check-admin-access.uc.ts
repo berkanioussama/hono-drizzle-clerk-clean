@@ -1,5 +1,5 @@
-import { IUserRepo } from "@/modules/user/domain/IUser.repo";
-import { Role } from "@/modules/user/domain/user.entity";
+import { IUserRepo } from "../../domain/IUser.repo";
+import { Role } from "../../domain/user.entity";
 
 export class CheckAdminAccessUC {
   constructor(private userRepo: IUserRepo) {}

@@ -1,5 +1,5 @@
 import { Context } from "hono";
-import { ApiResponse } from "@/shared/api/utils/api-response";
+import { ApiResponse } from "./api-response";
 
 interface ErrorHandlerParams {
     c: Context;

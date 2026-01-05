@@ -1,7 +1,7 @@
-import { Role, User } from "@/modules/user/domain/user.entity";
+import { Role, User } from "../domain/user.entity";
 import { InferSelectModel } from "drizzle-orm";
-import { users } from "@/shared/infrastructure/database/schema";
-import { Email } from "@/modules/user/domain/user.vo";
+import { users } from "../../../shared/infrastructure/database/schema";
+import { Email } from "../domain/user.vo";
 
 type DBUser = InferSelectModel<typeof users>
     

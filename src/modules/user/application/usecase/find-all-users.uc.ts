@@ -1,5 +1,5 @@
-import { IUserRepo } from "@/modules/user/domain/IUser.repo"
-import { UserDTO } from "@/modules/user/application/dto/user.dto"
+import { IUserRepo } from "../../domain/IUser.repo"
+import { UserDTO } from "../dto/user.dto"
 
 export class FindAllUsersUC {
   constructor(private userRepo: IUserRepo) {}

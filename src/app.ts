@@ -1,13 +1,14 @@
-import { clerkMiddleware } from "@hono/clerk-auth";
-import { userRoutes } from "@/modules/user/api/user.routes";
 import { Hono } from "hono";
+import { clerkMiddleware } from "@hono/clerk-auth";
 import { logger } from "hono/logger";
-import { secureHeaders } from "hono/secure-headers";
-import { limiter } from "@/shared/api/middlewares/rate-limiter";
-import { compress } from '@hono/bun-compress'
-import { requireAuth } from "@/shared/api/middlewares/clerk-require-auth"
-import clerkWebhook from "@/modules/user/api/webhooks/users.webhook"
 import { cors } from "hono/cors";
+import { secureHeaders } from "hono/secure-headers";
+import { compress } from '@hono/bun-compress'
+
+import { userRoutes } from "./modules/user/api/user.routes";
+import { limiter } from "./shared/api/middlewares/rate-limiter";
+import { requireAuth } from "./shared/api/middlewares/clerk-require-auth"
+import clerkWebhook from "./modules/user/api/webhooks/users.webhook"
 
 const app = new Hono();
 

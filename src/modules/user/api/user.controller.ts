@@ -1,14 +1,14 @@
 import { Context } from "hono";
-import { AddUserUC } from "@/modules/user/application/usecase/add-user.uc";
-import { EditUserUC } from "@/modules/user/application/usecase/edit-user.uc";
-import { FindUserByIdUC } from "@/modules/user/application/usecase/find-user-by-id.uc";
-import { FindUserByProviderIdUC } from "@/modules/user/application/usecase/find-user-by-provider-id.uc";
-import { RemoveUserUC } from "@/modules/user/application/usecase/remove-user.uc";
-import { FindAllUsersUC } from "@/modules/user/application/usecase/find-all-users.uc";
-import { ApiResponse } from "@/shared/api/utils/api-response";
-import { errorHandler } from "@/shared/api/utils/error-handler";
 import { getAuth } from "@hono/clerk-auth";
-import { AddUserSchema, EditUserSchema } from "@/modules/user/api/user.validator";
+import { AddUserUC } from "../application/usecase/add-user.uc";
+import { EditUserUC } from "../application/usecase/edit-user.uc";
+import { FindUserByIdUC } from "../application/usecase/find-user-by-id.uc";
+import { FindUserByProviderIdUC } from "../application/usecase/find-user-by-provider-id.uc";
+import { RemoveUserUC } from "../application/usecase/remove-user.uc";
+import { FindAllUsersUC } from "../application/usecase/find-all-users.uc";
+import { ApiResponse } from "../../../shared/api/utils/api-response";
+import { errorHandler } from "../../../shared/api/utils/error-handler";
+import { AddUserSchema, EditUserSchema } from "./user.validator";
 
 export class UserController {
     constructor(

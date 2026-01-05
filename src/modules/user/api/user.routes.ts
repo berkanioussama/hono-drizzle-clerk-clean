@@ -1,14 +1,14 @@
 import { Hono } from "hono";
-import { UserRepo } from "@/modules/user/infrastructure/user.repo";
-import { AddUserUC } from "@/modules/user/application/usecase/add-user.uc";
-import { EditUserUC } from "@/modules/user/application/usecase/edit-user.uc";
-import { RemoveUserUC } from "@/modules/user/application/usecase/remove-user.uc";
-import { FindUserByIdUC } from "@/modules/user/application/usecase/find-user-by-id.uc";
-import { FindAllUsersUC } from "@/modules/user/application/usecase/find-all-users.uc";
-import { FindUserByProviderIdUC } from "@/modules/user/application/usecase/find-user-by-provider-id.uc";
-import { UserController } from "@/modules/user/api/user.controller";
-import { requireAdminAuth } from "@/shared/api/middlewares/clerk-require-auth";
-import { CheckAdminAccessUC } from "@/modules/user/application/usecase/check-admin-access.uc";
+import { UserRepo } from "../infrastructure/user.repo";
+import { AddUserUC } from "../application/usecase/add-user.uc";
+import { EditUserUC } from "../application/usecase/edit-user.uc";
+import { RemoveUserUC } from "../application/usecase/remove-user.uc";
+import { FindUserByIdUC } from "../application/usecase/find-user-by-id.uc";
+import { FindAllUsersUC } from "../application/usecase/find-all-users.uc";
+import { FindUserByProviderIdUC } from "../application/usecase/find-user-by-provider-id.uc";
+import { UserController } from "./user.controller";
+import { requireAdminAuth } from "../../../shared/api/middlewares/clerk-require-auth";
+import { CheckAdminAccessUC } from "../application/usecase/check-admin-access.uc";
 
 export const userRoutes = new Hono();
 

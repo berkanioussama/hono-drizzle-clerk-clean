@@ -1,4 +1,4 @@
-import { Email } from "@/modules/user/domain/user.vo";
+import { Email } from "./user.vo";
 
 export enum Role { USER = "user", ADMIN = "admin" }
 

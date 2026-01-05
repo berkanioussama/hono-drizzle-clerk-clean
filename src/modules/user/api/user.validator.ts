@@ -1,5 +1,5 @@
 import { z } from "zod";
-import { Role } from "@/modules/user/domain/user.entity";
+import { Role } from "../domain/user.entity";
 
 export const UserSchema = z.object({
   id: z.string().min(2, { message: "ID must be at least 2 characters." }),

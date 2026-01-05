@@ -1,7 +1,7 @@
-import { User } from "@/modules/user/domain/user.entity"
-import { IUserRepo } from "@/modules/user/domain/IUser.repo"
-import { AddUserDTO, UserDTO } from "@/modules/user/application/dto/user.dto"
-import { Email } from "@/modules/user/domain/user.vo";
+import { User } from "../../domain/user.entity"
+import { IUserRepo } from "../../domain/IUser.repo"
+import { AddUserDTO, UserDTO } from "../dto/user.dto"
+import { Email } from "../../domain/user.vo";
 
 export class AddUserUC {
   constructor(private userRepo: IUserRepo) {}

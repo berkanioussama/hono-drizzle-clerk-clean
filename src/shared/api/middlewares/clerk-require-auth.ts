@@ -1,7 +1,7 @@
 import type { Context, Next } from "hono";
 import { getAuth } from "@hono/clerk-auth";
-import { CheckAdminAccessUC } from "@/modules/user/application/usecase/check-admin-access.uc"
-import { ApiResponse } from "@/shared/api/utils/api-response";
+import { CheckAdminAccessUC } from "../../../modules/user/application/usecase/check-admin-access.uc"
+import { ApiResponse } from "../utils/api-response";
 
 export const requireAuth = () => {
   return async (c: Context, next: Next) => {

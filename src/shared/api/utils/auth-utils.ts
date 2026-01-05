@@ -1,7 +1,7 @@
-import { getAuth } from "@hono/clerk-auth";
 import { Context } from "hono";
-import { UserRepo } from "@/modules/user/infrastructure/user.repo";
-import { ApiResponse } from "@/shared/api/utils/api-response";
+import { getAuth } from "@hono/clerk-auth";
+import { UserRepo } from "../../../modules/user/infrastructure/user.repo";
+import { ApiResponse } from "./api-response";
 
 const userRepo = new UserRepo()
 
