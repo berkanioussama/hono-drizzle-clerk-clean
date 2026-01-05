@@ -1,21 +1,14 @@
-export function ApiResponse<T = any>(data: T | string) {
-    const isError = typeof data === 'string';
-    
-    if (isError) {
-        return {
-            status: 'error' as const,
-            data: null,
-            error: data
-        };
-    }
+import { Context } from "hono";
 
-    return {
-        status: 'success' as const,
-        data,
-        error: null
-    };
+export function successResponse<T>(c: Context, status: 200 | 201, data?: T)  {
+    const response = data === undefined
+        ? { status: 'success' as const, data: null, error: null }
+
+        : { status: 'success' as const, data, error: null };
+    
+    return c.json(response, status);
 }
 
-export type ApiResponseType<T = any> = 
-    | { status: 'success'; data: T; error: null }
-    | { status: 'error'; data: null; error: string };
+export function errorResponse(c: Context, status: 400 | 401 | 403 | 404 | 500, error: string) {
+    return c.json({ status: 'error', data: null, error } , status);
+}

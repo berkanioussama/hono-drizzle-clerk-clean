@@ -1,5 +1,5 @@
 import { Context } from "hono";
-import { ApiResponse } from "./api-response";
+import { errorResponse } from "./api-response";
 
 interface ErrorHandlerParams {
     c: Context;
@@ -9,5 +9,5 @@ interface ErrorHandlerParams {
 
 export const errorHandler = ({c, error, message}: ErrorHandlerParams) => {
     console.log(error)
-    return c.json(ApiResponse(message), 500)
+    return errorResponse(c, 500, message);
 }
