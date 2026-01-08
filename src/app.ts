@@ -6,8 +6,8 @@ import { secureHeaders } from "hono/secure-headers";
 import { compress } from '@hono/bun-compress'
 
 import { userRoutes } from "./modules/user/api/user.routes";
-import { limiter } from "./shared/api/middlewares/rate-limiter";
-import { requireAuth } from "./shared/api/middlewares/clerk-require-auth"
+import { limiter } from "./shared/api/middlewares/rate-limiter.middleware";
+import { requireAuth } from "./shared/api/middlewares/auth.middleware"
 import clerkWebhook from "./modules/user/api/webhooks/users.webhook"
 
 const app = new Hono();

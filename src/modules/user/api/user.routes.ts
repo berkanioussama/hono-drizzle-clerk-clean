@@ -7,7 +7,7 @@ import { FindUserByIdUC } from "../application/usecase/find-user-by-id.uc";
 import { FindAllUsersUC } from "../application/usecase/find-all-users.uc";
 import { FindUserByProviderIdUC } from "../application/usecase/find-user-by-provider-id.uc";
 import { UserController } from "./user.controller";
-import { requireAdminAuth } from "../../../shared/api/middlewares/clerk-require-auth";
+import { requireAdminAuth } from "../../../shared/api/middlewares/auth.middleware";
 import { AuthorizationService } from "../domain/user.service";
 
 export const userRoutes = new Hono();
