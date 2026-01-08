@@ -8,7 +8,7 @@ import { compress } from '@hono/bun-compress'
 import { userRoutes } from "./modules/user/api/user.routes";
 import { limiter } from "./shared/api/middlewares/rate-limiter.middleware";
 import { requireAuth } from "./shared/api/middlewares/auth.middleware"
-import clerkWebhook from "./modules/user/api/webhooks/users.webhook"
+import clerkWebhook from "./modules/user/api/user.webhook"
 
 const app = new Hono();
 
