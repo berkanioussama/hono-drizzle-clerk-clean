@@ -1,5 +1,6 @@
 import { IUserRepo } from "../../domain/IUser.repo"
 import { UserDTO, FindUserByEmailDTO } from "../dto/user.dto"
+import { UserMapper } from "../dto/user.mapper"
 
 export class FindUserByEmailUC {
   constructor(private userRepo: IUserRepo) {}
@@ -15,6 +16,6 @@ export class FindUserByEmailUC {
     if (user.providerId !== providerId) {
       throw new Error("Unauthorized to access this resource")
     }
-    return user.toJSON()
+    return UserMapper.toDTO(user)
   }
 }

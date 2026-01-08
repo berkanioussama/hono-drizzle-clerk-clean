@@ -2,6 +2,7 @@ import { User } from "../../domain/user.entity"
 import { IUserRepo } from "../../domain/IUser.repo"
 import { AddUserDTO, UserDTO } from "../dto/user.dto"
 import { Email } from "../../domain/user.vo";
+import { UserMapper } from "../dto/user.mapper";
 
 export class AddUserUC {
   constructor(private userRepo: IUserRepo) {}
@@ -22,6 +23,6 @@ export class AddUserUC {
 
     const createdUser = await this.userRepo.add(user)
 
-    return createdUser.toJSON()
+    return UserMapper.toDTO(createdUser)
   }
 }

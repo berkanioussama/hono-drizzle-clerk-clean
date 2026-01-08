@@ -1,5 +1,6 @@
 import { IUserRepo } from "../../domain/IUser.repo"
 import { FindUserByProviderIdDTO, UserDTO } from "../dto/user.dto"
+import { UserMapper } from "../dto/user.mapper"
 
 export class FindUserByProviderIdUC {
     constructor(private userRepo: IUserRepo) {}
@@ -8,6 +9,6 @@ export class FindUserByProviderIdUC {
         const user = await this.userRepo.findByProviderId(providerId)
         if (!user) throw new Error('User not found')
 
-        return user.toJSON()
+        return UserMapper.toDTO(user)
     }
 }

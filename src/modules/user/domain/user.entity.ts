@@ -73,11 +73,9 @@ export class User {
   get id() { return this.props.id }
   get providerId() { return this.props.providerId }
   get name() { return this.props.name }
-  get email() { return this.props.email.toString() }
+  get email() { return this.props.email }
   get image() { return this.props.image }
   get role() { return this.props.role }
   get createdAt() { return this.props.createdAt }
   get updatedAt() { return this.props.updatedAt }
-  
-  toJSON() { return { ...this.props, email: this.props.email.toString() } }
 }

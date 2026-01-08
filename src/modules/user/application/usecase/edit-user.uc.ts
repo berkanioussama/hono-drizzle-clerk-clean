@@ -1,6 +1,7 @@
 import { IUserRepo } from "../../domain/IUser.repo";
 import { Email } from "../../domain/user.vo";
 import { EditUserDTO, UserDTO } from "../dto/user.dto";
+import { UserMapper } from "../dto/user.mapper";
 
 export class EditUserUC {
   constructor(private userRepo: IUserRepo) {}
@@ -24,6 +25,6 @@ export class EditUserUC {
 
     const updatedUser = await this.userRepo.edit(user)
 
-    return updatedUser.toJSON()
+    return UserMapper.toDTO(updatedUser)
   }
 }
