@@ -12,7 +12,7 @@ export class UserRepo implements IUserRepo {
             id: user.id,
             providerId: user.providerId,
             name: user.name,
-            email: user.email,
+            email: user.email.toString(),
             image: user.image,
             role: user.role,
             createdAt: user.createdAt,
@@ -25,7 +25,7 @@ export class UserRepo implements IUserRepo {
     async edit(user: User): Promise<User> {
         const updatedUser = await db.update(users).set({
             name: user.name,
-            email: user.email,
+            email: user.email.toString(),
             image: user.image,
             updatedAt: user.updatedAt,
         }).where(eq(users.id, user.id)).returning();
