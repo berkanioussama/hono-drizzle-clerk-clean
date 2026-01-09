@@ -23,4 +23,8 @@ export class UserDBMapper {
             updatedAt: new Date(dbUser.updatedAt),
         });
     }
+
+    static toDomainList(dbUsers: DBUser[]): User[] {
+        return dbUsers.map(dbUser => this.toDomain(dbUser));
+    }
 }

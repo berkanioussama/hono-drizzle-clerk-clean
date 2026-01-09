@@ -35,9 +35,7 @@ export class UserRepoImpl implements IUserRepo {
 
     async findAll(): Promise<User[]> {
         const findedUsers = await db.select().from(users)
-        return findedUsers.map(
-            findedUser => UserDBMapper.toDomain(findedUser)
-        )
+        return UserDBMapper.toDomainList(findedUsers)
 
     }
     
