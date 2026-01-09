@@ -10,10 +10,10 @@ export class UserRepoImpl implements IUserRepo {
     async add(user: User): Promise<User> {
         const insertedUser = await db.insert(users).values({
             id: user.id,
-            providerId: user.providerId,
+            providerId: user.providerId.toString(),
             name: user.name,
             email: user.email.toString(),
-            image: user.image,
+            image: user.image?.toString(),
             role: user.role,
             createdAt: user.createdAt,
             updatedAt: user.updatedAt,
@@ -26,7 +26,7 @@ export class UserRepoImpl implements IUserRepo {
         const updatedUser = await db.update(users).set({
             name: user.name,
             email: user.email.toString(),
-            image: user.image,
+            image: user.image?.toString(),
             updatedAt: user.updatedAt,
         }).where(eq(users.id, user.id)).returning();
         

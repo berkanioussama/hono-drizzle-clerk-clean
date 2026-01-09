@@ -1,12 +1,12 @@
-import { Email } from "./user.vo";
+import { Email, ProviderId, ImageUrl } from "./user.vo";
 
 export enum Role { USER = "user", ADMIN = "admin" }
 
 export interface CreateUserProps {
-  providerId: string;
+  providerId: ProviderId;
   name: string;
   email: Email;
-  image: string;
+  image: ImageUrl;
 }
 export interface UserProps extends CreateUserProps {
   id: string;
@@ -16,11 +16,10 @@ export interface UserProps extends CreateUserProps {
 }
 
 export class User {
-  private constructor(private props: UserProps) {
-    this.validate();
-  }
+  private constructor(private props: UserProps) {}
 
   static create(props: CreateUserProps): User {
+    this.validate(props);
     return new User({
       ...props,
       id: crypto.randomUUID(),
@@ -34,24 +33,28 @@ export class User {
     return new User(props);
   }
 
-  private validate() {
-    if (this.props.providerId.trim().length < 2) {
-      throw new Error("Provider ID must be at least 2 characters.");
+  private static readonly NAME_MIN_LENGTH = 2;
+  private static readonly NAME_MAX_LENGTH = 100;
+
+  private static validate(props: CreateUserProps) {
+    
+    if (!(props.providerId instanceof ProviderId)) {
+      throw new Error("Provider ID must be a ProviderId instance.");
     }
-    if (this.props.name.trim().length < 2) {
-      throw new Error("Name must be at least 2 characters.");
+    if (props.name.trim().length < User.NAME_MIN_LENGTH || props.name.trim().length > User.NAME_MAX_LENGTH) {
+      throw new Error(`Name must be between ${User.NAME_MIN_LENGTH} and ${User.NAME_MAX_LENGTH} characters.`);
     }
-    if (!(this.props.email instanceof Email)) {
+    if (!(props.email instanceof Email)) {
       throw new Error("Email must be an Email instance");
     }
-    if (this.props.image.trim().length < 3) {
-      throw new Error("Invalid image URL.");
+    if (!(props.image instanceof ImageUrl)) {
+      throw new Error("Image must be an ImageUrl instance");
     }
   }
 
   changeName(newName: string) {
-    if (!newName || newName.trim().length < 2) {
-      throw new Error("Name must be at least 2 characters.");
+    if (!newName || newName.trim().length < User.NAME_MIN_LENGTH) {
+      throw new Error(`Name must be at least ${User.NAME_MIN_LENGTH} characters.`);
     }
     this.props.name = newName.trim();
     this.props.updatedAt = new Date();
@@ -62,10 +65,7 @@ export class User {
     this.props.updatedAt = new Date();
   }
 
-  changeImage(newImage: string) {
-    if (!newImage || newImage.trim().length < 3) {
-      throw new Error("Invalid image URL.");
-    }
+  changeImage(newImage: ImageUrl) {
     this.props.image = newImage;
     this.props.updatedAt = new Date();
   }

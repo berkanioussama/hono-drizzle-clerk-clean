@@ -13,7 +13,7 @@ export class FindUserByEmailUC {
     const user = await this.userRepo.findByEmail(email)
     if (!user) return null;
 
-    if (user.providerId !== providerId) {
+    if (user.providerId.toString() !== providerId) {
       throw new Error("Unauthorized to access this resource")
     }
     return UserMapper.toDTO(user)

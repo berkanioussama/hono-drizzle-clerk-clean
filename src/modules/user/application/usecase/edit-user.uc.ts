@@ -1,5 +1,5 @@
 import { IUserRepo } from "../../domain/IUser.repo";
-import { Email } from "../../domain/user.vo";
+import { Email, ImageUrl } from "../../domain/user.vo";
 import { EditUserDTO, UserDTO } from "../dto/user.dto";
 import { UserMapper } from "../dto/user.mapper";
 
@@ -20,7 +20,8 @@ export class EditUserUC {
       user.changeEmail(email)
     }
     if (input.image) {
-      user.changeImage(input.image)
+      const image = ImageUrl.create(input.image)
+      user.changeImage(image)
     }
 
     const updatedUser = await this.userRepo.edit(user)

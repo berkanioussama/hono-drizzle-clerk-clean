@@ -14,7 +14,7 @@ export class FindUserByIdUC {
     const user = await this.userRepository.findById(id);
     if (!user) return null;
 
-    if (user.providerId !== providerId) {
+    if (user.providerId.toString() !== providerId) {
       throw new Error("Unauthorized to access this resource");
     }
 

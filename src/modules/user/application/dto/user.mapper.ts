@@ -5,10 +5,10 @@ export class UserMapper {
   static toDTO(user: User): UserDTO {
     return {
       id: user.id,
-      providerId: user.providerId,
+      providerId: user.providerId.toString(),
       name: user.name,
       email: user.email.toString(),
-      image: user.image,
+      image: user.image?.toString(),
       role: user.role,
       createdAt: user.createdAt,
       updatedAt: user.updatedAt,
