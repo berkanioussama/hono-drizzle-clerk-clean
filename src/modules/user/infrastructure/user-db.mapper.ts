@@ -5,7 +5,7 @@ import { Email, ImageUrl, ProviderId } from "../domain/user.vo";
 
 type DBUser = InferSelectModel<typeof users>
     
-export class UserMapper {
+export class UserDBMapper {
     
     static toDomain(dbUser: DBUser): User {
         const providerId = ProviderId.fromPersistence(dbUser.providerId)

@@ -1,7 +1,7 @@
 import { User } from "../../domain/user.entity";
 import { UserDTO } from "./user.dto";
 
-export class UserMapper {
+export class UserDTOMapper {
   static toDTO(user: User): UserDTO {
     return {
       id: user.id,

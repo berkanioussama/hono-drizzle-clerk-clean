@@ -3,7 +3,7 @@ import { IUserRepo } from "../domain/IUser.repo";
 import { db } from "../../../shared/infrastructure/database/db";
 import { users } from "../../../shared/infrastructure/database/schema";
 import { eq } from "drizzle-orm";
-import { UserMapper } from "./user.mapper";
+import { UserDBMapper } from "./user-db.mapper";
 
 export class UserRepoImpl implements IUserRepo {
     
@@ -19,7 +19,7 @@ export class UserRepoImpl implements IUserRepo {
             updatedAt: user.updatedAt,
         }).returning();
 
-        return UserMapper.toDomain(insertedUser[0]);
+        return UserDBMapper.toDomain(insertedUser[0]);
     }
 
     async edit(user: User): Promise<User> {
@@ -30,13 +30,13 @@ export class UserRepoImpl implements IUserRepo {
             updatedAt: user.updatedAt,
         }).where(eq(users.id, user.id)).returning();
         
-        return UserMapper.toDomain(updatedUser[0]);
+        return UserDBMapper.toDomain(updatedUser[0]);
     }
 
     async findAll(): Promise<User[]> {
         const findedUsers = await db.select().from(users)
         return findedUsers.map(
-            findedUser => UserMapper.toDomain(findedUser)
+            findedUser => UserDBMapper.toDomain(findedUser)
         )
 
     }
@@ -45,21 +45,21 @@ export class UserRepoImpl implements IUserRepo {
         const findedUser = await db.select().from(users).where(eq(users.id, id)).limit(1);
         if (findedUser.length === 0) return null
 
-        return UserMapper.toDomain(findedUser[0])
+        return UserDBMapper.toDomain(findedUser[0])
     }
 
     async findByProviderId(providerId: string): Promise<User | null> {
         const findedUser = await db.select().from(users).where(eq(users.providerId, providerId)).limit(1);
         if (findedUser.length === 0) return null
 
-        return UserMapper.toDomain(findedUser[0])
+        return UserDBMapper.toDomain(findedUser[0])
     }
     
     async findByEmail(email: string): Promise<User | null> {
         const findedUser = await db.select().from(users).where(eq(users.email, email)).limit(1);
         if (findedUser.length === 0) return null
 
-        return UserMapper.toDomain(findedUser[0])
+        return UserDBMapper.toDomain(findedUser[0])
     }
 
     async remove(id: string): Promise<void> {

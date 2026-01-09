@@ -1,7 +1,7 @@
 import { IUserRepo } from "../../domain/IUser.repo"
 import { UserDTO } from "../dto/user.dto"
 import { FindUserDTO } from "../dto/user.dto"
-import { UserMapper } from "../dto/user.mapper"
+import { UserDTOMapper } from "../dto/user-dto.mapper"
 
 export class FindUserByIdUC {
   constructor(private userRepository: IUserRepo) {}
@@ -18,6 +18,6 @@ export class FindUserByIdUC {
       throw new Error("Unauthorized to access this resource");
     }
 
-    return UserMapper.toDTO(user);
+    return UserDTOMapper.toDTO(user);
   }
 }
