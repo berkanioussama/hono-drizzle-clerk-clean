@@ -1,6 +1,6 @@
 import { Hono } from 'hono';
 import { Webhook } from 'svix';
-import { UserRepo } from '../infrastructure/user.repo';
+import { UserRepoImpl } from '../infrastructure/user.repo.impl';
 import { AddUserByProviderUC } from '../application/usecase/add-user-by-provider.uc';
 import { RemoveUserByProviderIdUC } from '../application/usecase/remove-user-by-provider.uc';
 
@@ -16,7 +16,7 @@ const webhook = new Webhook(process.env.CLERK_WEBHOOK_SIGNING_SECRET || '');
 
 const clerkWebhook = new Hono();
 
-const userRepo = new UserRepo();
+const userRepo = new UserRepoImpl();
 const addUserByProviderUC = new AddUserByProviderUC(userRepo);
 const removeUserByProviderIdUC = new RemoveUserByProviderIdUC(userRepo);
 

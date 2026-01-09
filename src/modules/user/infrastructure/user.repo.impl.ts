@@ -5,7 +5,7 @@ import { users } from "../../../shared/infrastructure/database/schema";
 import { eq } from "drizzle-orm";
 import { UserMapper } from "./user.mapper";
 
-export class UserRepo implements IUserRepo {
+export class UserRepoImpl implements IUserRepo {
     
     async add(user: User): Promise<User> {
         const insertedUser = await db.insert(users).values({

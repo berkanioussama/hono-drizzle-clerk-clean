@@ -1,5 +1,5 @@
 import { Hono } from "hono";
-import { UserRepo } from "../infrastructure/user.repo";
+import { UserRepoImpl } from "../infrastructure/user.repo.impl";
 import { AddUserUC } from "../application/usecase/add-user.uc";
 import { EditUserUC } from "../application/usecase/edit-user.uc";
 import { RemoveUserUC } from "../application/usecase/remove-user.uc";
@@ -12,7 +12,7 @@ import { AuthorizationService } from "../domain/user.service";
 
 export const userRoutes = new Hono();
 
-const userRepo = new UserRepo();
+const userRepo = new UserRepoImpl();
 
 const addUserUC  = new AddUserUC(userRepo);
 const editUserUC  = new EditUserUC(userRepo);

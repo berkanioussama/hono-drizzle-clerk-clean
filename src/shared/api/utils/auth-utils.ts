@@ -1,9 +1,9 @@
 import { Context } from "hono";
 import { getAuth } from "@hono/clerk-auth";
-import { UserRepo } from "../../../modules/user/infrastructure/user.repo";
+import { UserRepoImpl } from "../../../modules/user/infrastructure/user.repo.impl";
 import { errorResponse } from "./api-response";
 
-const userRepo = new UserRepo()
+const userRepo = new UserRepoImpl()
 
 export async function isCorrectUser(c: Context) {
     const auth = getAuth(c)
