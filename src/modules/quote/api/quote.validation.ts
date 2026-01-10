@@ -12,4 +12,5 @@ export const QuoteSchema = z.object({
 /*-----*****-----*/
 export const AddQuoteSchema = QuoteSchema.omit({ id: true, userId: true, createdAt: true, updatedAt: true });
 /*-----*****-----*/
+export const EditQuoteAdminSchema = QuoteSchema.omit({ id: true, createdAt: true, updatedAt: true });
 export const EditQuoteSchema = QuoteSchema.omit({ id: true, userId: true, createdAt: true, updatedAt: true });

@@ -9,8 +9,9 @@ src/
 │   └── user/
 │   │   ├── api/
 │   │   ├── application/
-│   │   │    └── usecase/
-│   │   │    └── dto/
+│   │   │    ├── usecase/
+│   │   │    ├── dto/
+│   │   │    └── service/
 │   │   ├── domain/
 │   │   └── infrastructure/
 │   └── other module
@@ -19,6 +20,7 @@ src/
 │   │   ├── middlewares/
 │   │   └── utils/
 │   ├── application/
+│   │   └── service/
 │   ├── domain/
 │   └── infrastructure/
 │       └── database/

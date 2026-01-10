@@ -29,7 +29,7 @@ export class UserController {
             const user = await this.addUserUC.execute(body.data)
             return successResponse(c, 201, user)
         } catch (error) {
-            return errorHandler({c, error, message: "server error creating user"})
+            return errorHandler({c, error, message: "Server error: creating user"})
         }
     }
     async editUser(c: Context) {
@@ -41,7 +41,7 @@ export class UserController {
             const user = await this.editUserUC.execute(body.data)
             return successResponse(c, 200, user)
         } catch (error) {
-            return errorHandler({c, error, message: "server error updating user"})
+            return errorHandler({c, error, message: "Server error: updating user"})
         }
     }
 
@@ -52,7 +52,7 @@ export class UserController {
             const users = await this.findAllUsersUC.execute()
             return successResponse(c, 200, users)
         } catch (error) {
-            return errorHandler({c, error, message: "server error getting users"})
+            return errorHandler({c, error, message: "Server error: getting users"})
         }
     }
 
@@ -64,7 +64,7 @@ export class UserController {
             const user = await this.findUserByIdUC.execute({ id, providerId: auth.userId })
             return successResponse(c, 200, user)
         } catch (error) {
-            return errorHandler({c, error, message: "server error getting user"})
+            return errorHandler({c, error, message: "Server error: getting user"})
         }
     }
 
@@ -75,7 +75,7 @@ export class UserController {
             const user = await this.findUserByProviderIdUC.execute({providerId: auth.userId })
             return successResponse(c, 200, user)
         } catch (error) {
-            return errorHandler({c, error, message: "server error getting user"})
+            return errorHandler({c, error, message: "Server error: getting user"})
         }
     }
 
@@ -87,7 +87,7 @@ export class UserController {
             await this.removeUserUC.execute({ id })
             return successResponse(c, 200, "User deleted")
         } catch (error) {
-            return errorHandler({c, error, message: "server error deleting user"})
+            return errorHandler({c, error, message: "Server error: deleting user"})
         }
     }
 }

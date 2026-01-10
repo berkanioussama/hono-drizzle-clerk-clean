@@ -13,6 +13,8 @@ export type EditQuoteDTO =
   Pick<QuoteDTO, 'id' | 'userId'> &
   Partial<Omit<QuoteDTO, 'id' | 'userId' | 'createdAt' | 'updatedAt'>>;
 
+export type EditQuoteDTOAdmin = Omit<QuoteDTO, 'userId'>
+
 export type FindQuoteDTO = Pick<QuoteDTO, 'id' | 'userId'>;
 
 export type FindQuotesByUserIdDTO = Pick<QuoteDTO, 'userId'>;
