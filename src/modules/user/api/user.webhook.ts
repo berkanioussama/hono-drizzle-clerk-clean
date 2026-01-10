@@ -1,6 +1,6 @@
 import { Hono } from 'hono';
 import { Webhook } from 'svix';
-import { UserRepoImpl } from '../infrastructure/user.repo.impl';
+import { UserRepoImpl } from '../infrastructure/user-repo.impl';
 import { AddUserByProviderUC } from '../application/usecase/add-user-by-provider.uc';
 import { RemoveUserByProviderIdUC } from '../application/usecase/remove-user-by-provider.uc';
 

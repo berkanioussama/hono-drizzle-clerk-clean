@@ -6,7 +6,6 @@ export class EditQuoteUC {
     constructor(private quoteRepo: IQuoteRepo) {}
 
     async execute(input: EditQuoteDTO): Promise<QuoteDTO> {
-    
         const quote = await this.quoteRepo.findById(input.id);
         if (!quote) throw new Error("Quote not found")
         

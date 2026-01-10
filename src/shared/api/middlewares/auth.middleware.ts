@@ -1,6 +1,6 @@
 import type { Context, Next } from "hono";
 import { getAuth } from "@hono/clerk-auth";
-import { AuthorizationService } from "../../../modules/user/domain/user.service";
+import { AuthService } from "../../../modules/user/application/service/auth.service";
 import { errorResponse } from "../utils/api-response";
 
 export const requireAuth = () => {
@@ -15,7 +15,7 @@ export const requireAuth = () => {
   };
 };
 
-export const requireAdminAuth = (authService: AuthorizationService) => {
+export const requireAdminAuth = (authService: AuthService) => {
   return async (c: Context, next: Next) => {
     const auth = getAuth(c)
     if(!auth || !auth.userId) return errorResponse(c, 401, "Unauthorized");

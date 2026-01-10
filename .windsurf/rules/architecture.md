@@ -7,7 +7,7 @@ trigger: always_on
 We are building a backend API using Clean Architecture
 
 - **Api layer**: contains controllers, validators, routes, middlewares, webhooks, depends on Application.
-- **Application layer**: contains use cases, dto, mappers, and business rules.
+- **Application layer**: contains use cases, dto, mappers, services and business rules.
 - **Domain layer**: contains entities, value objects, services and repository interfaces, must not depend on any other layer.
 - **Infrastructure layer**: contains concrete implementations of repositories, mappers, depends on Domain.
 

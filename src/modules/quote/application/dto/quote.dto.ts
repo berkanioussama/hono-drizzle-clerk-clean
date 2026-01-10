@@ -17,4 +17,4 @@ export type FindQuoteDTO = Pick<QuoteDTO, 'id' | 'userId'>;
 
 export type FindQuotesByUserIdDTO = Pick<QuoteDTO, 'userId'>;
 
-export type RemoveQuoteDTO = Pick<QuoteDTO, 'id'>;
+export type RemoveQuoteDTO = Pick<QuoteDTO, 'id' | 'userId'>;

@@ -6,6 +6,7 @@ import { secureHeaders } from "hono/secure-headers";
 import { compress } from '@hono/bun-compress'
 
 import { userRoutes } from "./modules/user/api/user.routes";
+import { quoteRoutes } from "./modules/quote/api/quote.routes";
 import { limiter } from "./shared/api/middlewares/rate-limiter.middleware";
 import { requireAuth } from "./shared/api/middlewares/auth.middleware"
 import clerkWebhook from "./modules/user/api/user.webhook"
@@ -27,6 +28,7 @@ app.use("*", requireAuth())
 app.use("*", limiter)
 
 app.route("/api/v1/users", userRoutes);
+app.route("/api/v1/quotes", quoteRoutes);
 
 app.get("/", (c) => c.json({ message: "API is running..." }))
 app.notFound((c) => { return c.json({ message: 'No route found' }, 404) })
