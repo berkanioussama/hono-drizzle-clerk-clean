@@ -1,40 +1,48 @@
 import { Hono } from "hono";
 import { UserRepoImpl } from "../infrastructure/user-repo.impl";
-import { AddUserUC } from "../application/usecase/add-user.uc";
-import { EditUserUC } from "../application/usecase/edit-user.uc";
-import { RemoveUserUC } from "../application/usecase/remove-user.uc";
-import { FindUserByIdUC } from "../application/usecase/find-user-by-id.uc";
-import { FindAllUsersUC } from "../application/usecase/find-all-users.uc";
+import { AddUserAdminUC } from "../application/usecase/add-user.uc";
+import { EditUserAdminUC, EditUserUC } from "../application/usecase/edit-user.uc";
+import { RemoveUserAdminUC } from "../application/usecase/remove-user.uc";
+import { FindUserByIdAdminUC } from "../application/usecase/find-user-by-id.uc";
+import { FindAllUsersAdminUC } from "../application/usecase/find-all-users.uc";
 import { FindUserByProviderIdUC } from "../application/usecase/find-user-by-provider-id.uc";
 import { UserController } from "./user.controller";
 import { requireAdminAuth } from "../../../shared/api/middlewares/auth.middleware";
 import { AuthService } from "../application/service/auth.service";
 
 export const userRoutes = new Hono();
+export const userRoutesAdmin = new Hono();
 
 const userRepo = new UserRepoImpl();
 
-const addUserUC  = new AddUserUC(userRepo);
+const addUserAdminUC  = new AddUserAdminUC(userRepo);
+const editUserAdminUC  = new EditUserAdminUC(userRepo);
 const editUserUC  = new EditUserUC(userRepo);
-const findUserByIdUC = new FindUserByIdUC(userRepo);
-const findAllUsersUC = new FindAllUsersUC(userRepo);
+const findAllUsersAdminUC = new FindAllUsersAdminUC(userRepo);
+const findUserByIdAdminUC = new FindUserByIdAdminUC(userRepo);
 const findUserByProviderIdUC = new FindUserByProviderIdUC(userRepo);
-const removeUserUC  = new RemoveUserUC(userRepo);
+const removeUserAdminUC  = new RemoveUserAdminUC(userRepo);
 
 const authService = new AuthService(userRepo);
 
 const userController = new UserController(
-  addUserUC, editUserUC, findAllUsersUC, findUserByIdUC, findUserByProviderIdUC, removeUserUC
+  addUserAdminUC,
+  editUserAdminUC, editUserUC,
+  findAllUsersAdminUC, 
+  findUserByIdAdminUC, 
+  findUserByProviderIdUC, 
+  removeUserAdminUC
 )
 
 userRoutes.put("/:id", (c) => userController.editUser(c) )
-userRoutes.get("/:id", (c) => userController.findUserById(c))
 userRoutes.get("/providers/:id", (c) => userController.findUserByProviderId(c))
 
-userRoutes.use('*', requireAdminAuth(authService));
+userRoutesAdmin.use('*', requireAdminAuth(authService));
 
-userRoutes.post("/", (c) => userController.addUser(c))
-userRoutes.get("/", (c) => userController.findAllUsers(c))
-userRoutes.delete("/:id", (c) => userController.removeUser(c))
+userRoutesAdmin.post("/", (c) => userController.addUserAdmin(c))
+userRoutesAdmin.put("/:id", (c) => userController.editUserAdmin(c) )
+userRoutesAdmin.get("/", (c) => userController.findAllUsersAdmin(c))
+userRoutesAdmin.get("/:id", (c) => userController.findUserByIdAdmin(c))
+userRoutesAdmin.delete("/:id", (c) => userController.removeUserAdmin(c))
 
 export default userRoutes

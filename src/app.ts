@@ -5,7 +5,7 @@ import { cors } from "hono/cors";
 import { secureHeaders } from "hono/secure-headers";
 import { compress } from '@hono/bun-compress'
 
-import { userRoutes } from "./modules/user/api/user.routes";
+import userRoutes, { userRoutesAdmin } from "./modules/user/api/user.routes";
 import quoteRoutes, { adminQuoteRoutes } from "./modules/quote/api/quote.routes";
 import { limiter } from "./shared/api/middlewares/rate-limiter.middleware";
 import { requireAuth } from "./shared/api/middlewares/auth.middleware"
@@ -28,6 +28,7 @@ app.use("*", requireAuth())
 app.use("*", limiter)
 
 app.route("/api/v1/users", userRoutes);
+app.route("/api/v1/admin/users", userRoutesAdmin);
 app.route("/api/v1/quotes", quoteRoutes);
 app.route("/api/v1/admin/quotes", adminQuoteRoutes);
 

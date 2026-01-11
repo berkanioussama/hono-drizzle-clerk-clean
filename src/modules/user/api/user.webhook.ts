@@ -1,8 +1,8 @@
 import { Hono } from 'hono';
 import { Webhook } from 'svix';
 import { UserRepoImpl } from '../infrastructure/user-repo.impl';
-import { AddUserByProviderUC } from '../application/usecase/add-user-by-provider.uc';
-import { RemoveUserByProviderIdUC } from '../application/usecase/remove-user-by-provider.uc';
+import { AddUserAdminUC } from '../application/usecase/add-user.uc';
+import { RemoveUserByProviderIdUC } from '../application/usecase/remove-user.uc';
 
 type ClerkWebhookEvent = {
   type: string;
@@ -17,7 +17,7 @@ const webhook = new Webhook(process.env.CLERK_WEBHOOK_SIGNING_SECRET || '');
 const clerkWebhook = new Hono();
 
 const userRepo = new UserRepoImpl();
-const addUserByProviderUC = new AddUserByProviderUC(userRepo);
+const addUserAdminUC = new AddUserAdminUC(userRepo);
 const removeUserByProviderIdUC = new RemoveUserByProviderIdUC(userRepo);
 
 clerkWebhook.post('/', async (c) => {
@@ -46,7 +46,7 @@ clerkWebhook.post('/', async (c) => {
       
       // Process the event
       if (event.type === 'user.created' || event.type === 'user.updated') {
-        await addUserByProviderUC.execute({
+        await addUserAdminUC.execute({
           providerId: event.data.id,
           name: `${event.data.first_name || ''} ${event.data.last_name || ''}`.trim(),
           email: event.data.email_addresses?.[0]?.email_address,

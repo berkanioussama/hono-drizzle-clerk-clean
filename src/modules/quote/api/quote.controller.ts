@@ -32,7 +32,7 @@ export class QuoteController {
             const userId = c.req.param("userId");
             const body = AddQuoteSchema.safeParse(await c.req.json())
             if(!body.success) return errorResponse(c, 400, "Invalid request data")
-            const quote = await this.addQuoteUC.execute({userId, ...body.data})
+            const quote = await this.addQuoteAdminUC.execute({userId, ...body.data})
             return successResponse(c, 201, quote)
         } catch (error) {
             return errorHandler({c, error, message: "Server error: creating quote"})

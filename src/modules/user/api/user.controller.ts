@@ -1,35 +1,45 @@
 import { Context } from "hono";
 import { getAuth } from "@hono/clerk-auth";
-import { AddUserUC } from "../application/usecase/add-user.uc";
-import { EditUserUC } from "../application/usecase/edit-user.uc";
-import { FindUserByIdUC } from "../application/usecase/find-user-by-id.uc";
+import { AddUserAdminUC } from "../application/usecase/add-user.uc";
+import { EditUserAdminUC, EditUserUC } from "../application/usecase/edit-user.uc";
+import { FindUserByIdAdminUC } from "../application/usecase/find-user-by-id.uc";
 import { FindUserByProviderIdUC } from "../application/usecase/find-user-by-provider-id.uc";
-import { RemoveUserUC } from "../application/usecase/remove-user.uc";
-import { FindAllUsersUC } from "../application/usecase/find-all-users.uc";
+import { RemoveUserAdminUC } from "../application/usecase/remove-user.uc";
+import { FindAllUsersAdminUC } from "../application/usecase/find-all-users.uc";
 import { successResponse, errorResponse } from "../../../shared/api/utils/api-response";
 import { errorHandler } from "../../../shared/api/utils/error-handler";
-import { AddUserSchema, EditUserSchema } from "./user.validator";
+import { AddUserAdminSchema, EditUserAdminSchema, EditUserSchema } from "./user.validator";
 
 export class UserController {
     constructor(
-        private addUserUC : AddUserUC,
-        private editUserUC : EditUserUC,
-        private findAllUsersUC: FindAllUsersUC,
-        private findUserByIdUC: FindUserByIdUC,
+        private addUserAdminUC : AddUserAdminUC,
+        private editUserAdminUC : EditUserAdminUC, private editUserUC : EditUserUC,
+        private findAllUsersAdminUC: FindAllUsersAdminUC,
+        private findUserByIdAdminUC: FindUserByIdAdminUC,
         private findUserByProviderIdUC: FindUserByProviderIdUC,
-        private removeUserUC : RemoveUserUC
+        private removeUserAdminUC : RemoveUserAdminUC
     ) {}
 
-    async addUser(c: Context) {
+    async addUserAdmin(c: Context) {
         try {
-            const auth = await getAuth(c)
-            if(!auth) return errorResponse(c, 401, "Unauthorized, not connected")
-            const body = AddUserSchema.safeParse(await c.req.json())
+            const body = AddUserAdminSchema.safeParse(await c.req.json())
             if(!body.success) return errorResponse(c, 400, "Invalid request data")
-            const user = await this.addUserUC.execute(body.data)
+            const user = await this.addUserAdminUC.execute(body.data)
             return successResponse(c, 201, user)
         } catch (error) {
             return errorHandler({c, error, message: "Server error: creating user"})
+        }
+    }
+
+    async editUserAdmin(c: Context) {
+        try {
+            const id = c.req.param("id");
+            const body = EditUserAdminSchema.safeParse(await c.req.json())
+            if(!body.success) return errorResponse(c, 400, "Invalid request data")
+            const user = await this.editUserAdminUC.execute({id, ...body.data})
+            return successResponse(c, 200, user)
+        } catch (error) {
+            return errorHandler({c, error, message: "Server error: updating user"})
         }
     }
     async editUser(c: Context) {
@@ -45,29 +55,24 @@ export class UserController {
         }
     }
 
-    async findAllUsers(c: Context) {
+    async findAllUsersAdmin(c: Context) {
         try {
-            const auth = await getAuth(c)
-            if(!auth) return errorResponse(c, 401, "Unauthorized, not connected")
-            const users = await this.findAllUsersUC.execute()
+            const users = await this.findAllUsersAdminUC.execute()
             return successResponse(c, 200, users)
         } catch (error) {
             return errorHandler({c, error, message: "Server error: getting users"})
         }
     }
 
-    async findUserById(c: Context) {
+    async findUserByIdAdmin(c: Context) {
         try {
-            const auth = await getAuth(c)
-            if(!auth?.userId) return errorResponse(c, 401, "Unauthorized, not connected")
             const id = c.req.param("id");
-            const user = await this.findUserByIdUC.execute({ id, providerId: auth.userId })
+            const user = await this.findUserByIdAdminUC.execute(id)
             return successResponse(c, 200, user)
         } catch (error) {
             return errorHandler({c, error, message: "Server error: getting user"})
         }
     }
-
     async findUserByProviderId(c: Context) {
         try {
             const auth = await getAuth(c)
@@ -79,12 +84,10 @@ export class UserController {
         }
     }
 
-    async removeUser(c: Context) {
+    async removeUserAdmin(c: Context) {
         try {
-            const auth = await getAuth(c)
-            if(!auth) return errorResponse(c, 401, "Unauthorized, not connected")
             const id = c.req.param("id");
-            await this.removeUserUC.execute({ id })
+            await this.removeUserAdminUC.execute(id)
             return successResponse(c, 200, "User deleted")
         } catch (error) {
             return errorHandler({c, error, message: "Server error: deleting user"})

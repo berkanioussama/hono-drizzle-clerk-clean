@@ -54,7 +54,6 @@ export class ProviderId {
 
 export class ImageUrl {
     private imageUrl: string
-    private static validExtensions = ['.jpg', '.jpeg', '.png', '.webp', '.svg'];
     
     constructor(imageUrl: string) {
         this.imageUrl = imageUrl.trim()
@@ -79,13 +78,6 @@ export class ImageUrl {
 
         if (!imageUrl.startsWith('http')) {
             throw new Error("Image URL must use HTTP or HTTPS.");
-        }
-
-        const hasValidExtension = this.validExtensions.some(ext => 
-            imageUrl.toLowerCase().includes(ext)
-        );
-        if (!hasValidExtension) {
-            throw new Error("URL must point to an image file (.jpg, .png, .gif, .webp, .svg).");
         }
     }
     

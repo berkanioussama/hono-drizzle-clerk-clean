@@ -2,7 +2,7 @@ import { IUserRepo } from "../../domain/IUser.repo"
 import { UserDTO } from "../dto/user.dto"
 import { UserDTOMapper } from "../dto/user-dto.mapper"
 
-export class FindAllUsersUC {
+export class FindAllUsersAdminUC {
   constructor(private userRepo: IUserRepo) {}
 
   async execute(): Promise<UserDTO[]> {

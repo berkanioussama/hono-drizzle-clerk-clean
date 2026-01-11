@@ -11,7 +11,12 @@ export const UserSchema = z.object({
   createdAt: z.string().transform(str => new Date(str)),
   updatedAt: z.string().transform(str => new Date(str)),
 })
+
 /*-----*****-----*/
-export const AddUserSchema = UserSchema.omit({ id: true, role: true, createdAt: true, updatedAt: true });
+
+export const AddUserAdminSchema = UserSchema.omit({ id: true, role: true, createdAt: true, updatedAt: true });
+
 /*-----*****-----*/
+
+export const EditUserAdminSchema = UserSchema.omit({ id: true, role: true, createdAt: true, updatedAt: true });
 export const EditUserSchema = UserSchema.omit({ role: true, createdAt: true, updatedAt: true });

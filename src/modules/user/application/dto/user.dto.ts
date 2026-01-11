@@ -13,8 +13,12 @@ export interface UserDTO {
 
 export type AddUserDTO = Omit<UserDTO, 'id' | 'role' | 'createdAt' | 'updatedAt'>;
 
-export type EditUserDTO =
-  Pick<UserDTO, 'id' | 'providerId'> &
+export type EditUserAdminDTO =
+  Pick<UserDTO, 'id' > &
+  Partial< Omit<UserDTO, 'id' | 'providerId' | 'role' | 'createdAt' | 'updatedAt'> >;
+
+export type EditUserDTO = 
+  Pick<UserDTO, 'id' | 'providerId' > &
   Partial< Omit<UserDTO, 'id' | 'providerId' | 'role' | 'createdAt' | 'updatedAt'> >;
 
 export type FindUserDTO = Pick<UserDTO, 'id' | 'providerId'>
