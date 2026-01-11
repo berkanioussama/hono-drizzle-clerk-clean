@@ -1,11 +1,12 @@
 import { Context } from "hono";
 import { getAuth } from "@hono/clerk-auth";
-import { AddUserAdminUC } from "../application/usecase/add-user.uc";
-import { EditUserAdminUC, EditUserUC } from "../application/usecase/edit-user.uc";
-import { FindUserByIdAdminUC } from "../application/usecase/find-user-by-id.uc";
+import { AddUserAdminUC } from "../application/usecase/add-user-admin.uc";
+import { EditUserAdminUC } from "../application/usecase/edit-user-admin.uc";
+import { EditUserUC } from "../application/usecase/edit-user.uc";
+import { FindUserByIdAdminUC } from "../application/usecase/find-user-by-id-admin.uc";
 import { FindUserByProviderIdUC } from "../application/usecase/find-user-by-provider-id.uc";
 import { RemoveUserAdminUC } from "../application/usecase/remove-user.uc";
-import { FindAllUsersAdminUC } from "../application/usecase/find-all-users.uc";
+import { FindAllUsersAdminUC } from "../application/usecase/find-all-users-admin.uc";
 import { successResponse, errorResponse } from "../../../shared/api/utils/api-response";
 import { errorHandler } from "../../../shared/api/utils/error-handler";
 import { AddUserAdminSchema, EditUserAdminSchema, EditUserSchema } from "./user.validator";
@@ -68,6 +69,7 @@ export class UserController {
         try {
             const id = c.req.param("id");
             const user = await this.findUserByIdAdminUC.execute(id)
+            if (!user) return errorResponse(c, 404, "User not found")
             return successResponse(c, 200, user)
         } catch (error) {
             return errorHandler({c, error, message: "Server error: getting user"})

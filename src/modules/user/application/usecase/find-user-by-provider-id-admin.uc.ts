@@ -2,7 +2,7 @@ import { IUserRepo } from "../../domain/IUser.repo"
 import { FindUserByProviderIdDTO, UserDTO } from "../dto/user.dto"
 import { UserDTOMapper } from "../dto/user-dto.mapper"
 
-export class FindUserByProviderIdUC {
+export class FindUserByProviderIdAdminUC {
     constructor(private userRepo: IUserRepo) {}
 
     async execute({providerId}: FindUserByProviderIdDTO): Promise<UserDTO> {

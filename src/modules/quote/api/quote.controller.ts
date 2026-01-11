@@ -1,11 +1,14 @@
 import { Context } from "hono";
 import { getAuth } from "@hono/clerk-auth";
-import { AddQuoteAdminUC,AddQuoteUC } from "../application/usecase/add-quote.uc";
-import { EditQuoteAdminUC, EditQuoteUC } from "../application/usecase/edit-quote.uc";
-import { FindAllQuotesAdminUC } from "../application/usecase/find-all-quotes.uc";
-import { FindQuoteByIdUC, FindQuoteByIdAdminUC } from "../application/usecase/find-quote-by-id.uc";
-import { FindQuotesByUserIdAdminUC, FindQuotesByUserIdUC } from "../application/usecase/find-quotes-by-user-id.uc";
-import { RemoveQuoteAdminUC, RemoveQuoteUC } from "../application/usecase/remove-quote.uc";
+import { AddQuoteUC } from "../application/usecase/add-quote.uc";
+import { EditQuoteUC } from "../application/usecase/edit-quote.uc";
+import { FindAllQuotesAdminUC } from "../application/usecase/find-all-quotes-admin.uc";
+import { FindQuoteByIdAdminUC } from "../application/usecase/find-quote-by-id-admin.uc";
+import { FindQuoteByIdUC } from "../application/usecase/find-quote-by-id.uc";
+import { FindQuotesByUserIdAdminUC } from "../application/usecase/find-quotes-by-user-id-admin.uc";
+import { FindQuotesByUserIdUC } from "../application/usecase/find-quotes-by-user-id.uc";
+import { RemoveQuoteAdminUC } from "../application/usecase/remove-quote-admin.uc";
+import { RemoveQuoteUC } from "../application/usecase/remove-quote.uc";
 import { successResponse, errorResponse } from "../../../shared/api/utils/api-response";
 import { errorHandler } from "../../../shared/api/utils/error-handler";
 import { AddQuoteSchema, EditQuoteSchema, EditQuoteAdminSchema } from "./quote.validation";
@@ -13,9 +16,7 @@ import { UserService } from "../../user/application/service/user.service";
 
 export class QuoteController {
     constructor(
-        private addQuoteAdminUC: AddQuoteAdminUC,
         private addQuoteUC: AddQuoteUC,
-        private editQuoteAdminUC: EditQuoteAdminUC,
         private editQuoteUC: EditQuoteUC,
         private findAllQuotesAdminUC: FindAllQuotesAdminUC,
         private findQuoteByIdAdminUC: FindQuoteByIdAdminUC,
@@ -27,17 +28,6 @@ export class QuoteController {
         private userService: UserService
     ) {}
 
-    async addQuoteAdmin(c: Context) {
-        try {
-            const userId = c.req.param("userId");
-            const body = AddQuoteSchema.safeParse(await c.req.json())
-            if(!body.success) return errorResponse(c, 400, "Invalid request data")
-            const quote = await this.addQuoteAdminUC.execute({userId, ...body.data})
-            return successResponse(c, 201, quote)
-        } catch (error) {
-            return errorHandler({c, error, message: "Server error: creating quote"})
-        }
-    }
     async addQuote(c: Context) {
         try {
             const auth = await getAuth(c)
@@ -63,17 +53,6 @@ export class QuoteController {
             const body = EditQuoteSchema.safeParse(await c.req.json())
             if(!body.success) return errorResponse(c, 400, "Invalid request data")
             const quote = await this.editQuoteUC.execute({ id, userId: user.id, ...body.data})
-            return successResponse(c, 200, quote)
-        } catch (error) {
-            return errorHandler({c, error, message: "Server error: updating quote"})
-        }
-    }
-    async editQuoteAdmin(c: Context) {
-        try {
-            const id = c.req.param("id");
-            const body = EditQuoteAdminSchema.safeParse(await c.req.json())
-            if(!body.success) return errorResponse(c, 400, "Invalid request data")
-            const quote = await this.editQuoteAdminUC.execute({ id, ...body.data})
             return successResponse(c, 200, quote)
         } catch (error) {
             return errorHandler({c, error, message: "Server error: updating quote"})
